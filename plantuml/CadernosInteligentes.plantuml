@@ -1,0 +1,106 @@
+@startuml CadernosInteligentes
+
+    class Estoque {
+        - Map<chave, Item itemEstoque>
+    }
+
+    class Item {
+        - String descricao
+        - Double  precoUnidade
+        - TamanhoTipo tamanhoItem
+        - String  imagemItem
+    }
+
+    enum TamanhoTipo {
+        M
+        G
+        P
+    }
+
+    enum PerfilTipo {
+        CLIENTE
+        ADMIN
+    }
+
+    class User {
+        - String nomeCompleto
+        - String cpf
+        - String telefone
+        - String email
+        - String senha
+        - Endereco enderecoUser
+        - PerfilTipo perfilUser
+        - Cartao cartaoUser
+    }
+
+    class Endereco{
+        - String endereco
+        - String complemento
+        - Integer numero
+        - String Cep
+        - Cidade cidadeEndereco
+    }
+
+    class Cidade{
+        - String nomeCidade
+        - Estado estadoCidade
+    }
+
+    class Estado{
+        - String nomeEstadoCompleto
+        - String abreviado
+    }
+
+    class Carrinho{
+        - Venda vendaCarrinho
+        - User userCarrinho
+    }
+
+    class Pagamento{
+        - Carrinho carrinhoCliente
+        - String statusPagamento
+    }
+
+    class Cartao{
+        - String titularCarto
+        - Double numeroCartao
+        - User user
+        - Tipocartao tipoCartao
+    }
+
+    enum CartaoTipo{
+        DEBITO
+        CREDITO
+    }
+
+    enum PagamentoTipo{
+        BOLETO
+        PIX
+        CARTAO
+    }
+
+    class ItemVenda{
+        - Double preco
+        - Integer quantidade
+    }
+
+    class Venda{
+        - Date dataCompra
+    }
+
+    Item  ---  TamanhoTipo
+    User  ---  PerfilTipo
+    User <|---  Endereco
+    Endereco <|---  Cidade
+    Cidade " 1...* " o--- "1" Estado
+    Cartao "1" --- "1" CartaoTipo
+    Carrinho "1" --- "1" PagamentoTipo
+    Venda "1" o-up-- "0..*" Carrinho
+    ItemVenda "1...*" --- "1"Estoque 
+    Item "1   " *--- "1....*" Estoque 
+    Venda " 1...* " --up-o "1...*" ItemVenda
+    User "1" *--- "1...*" Carrinho
+    Carrinho "1" o--- "1" Pagamento
+    User "1" *-- "0..*" Cartao
+
+@endstartuml
