@@ -1,14 +1,21 @@
 package br.unitins.hello.model;
 
+import java.util.List;
+
 import org.hibernate.annotations.ManyToAny;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 
 @Entity
 public class Usuario extends DefaultEntity{
@@ -24,11 +31,29 @@ public class Usuario extends DefaultEntity{
     private String email;
     @Column
     private String senha;
-  
-    /*@OneToMany
-    @Column(name = "id_cartao")
-    private Cartao cartaoUser;
-*/
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinTable(name="usuario_cartao",
+        joinColumns= @JoinColumn(name="id_usuario"),
+        inverseJoinColumns = @JoinColumn(name="id_cartao") )
+    private List<Cartao> cartaoUser;
+@Enumerated(EnumType.STRING)
+    private PerfilTipo perfil;
+
+
+
+    public List<Cartao> getCartaoUser() {
+        return cartaoUser;
+    }
+    public void setCartaoUser(List<Cartao> cartaoUser) {
+        this.cartaoUser = cartaoUser;
+    }
+    public PerfilTipo getPerfil() {
+        return perfil;
+    }
+    public void setPerfil(PerfilTipo perfil) {
+        this.perfil = perfil;
+    }
+    
     public String getLogin() {
         return login;
     }
@@ -38,6 +63,7 @@ public class Usuario extends DefaultEntity{
     public String getNomeCompleto() {
         return nomeCompleto;
     }
+   
     public void setNomeCompleto(String nomeCompleto) {
         this.nomeCompleto = nomeCompleto;
     }
@@ -65,8 +91,5 @@ public class Usuario extends DefaultEntity{
     public void setSenha(String senha) {
         this.senha = senha;
     }
-    
-    
-   
  
 }

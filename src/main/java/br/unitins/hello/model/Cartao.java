@@ -11,7 +11,7 @@ public class Cartao extends DefaultEntity {
     private String titularCartao;
     
   @Enumerated(EnumType.STRING)
-    @Column(name = "tipo_perfil")
+    @Column(name = "tipo_cartao")
     private Tipocartao tipoCartao;
     @Column
     private Double numeroCartao;

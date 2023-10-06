@@ -1,11 +1,16 @@
 package br.unitins.hello.dto;
 
-import jakarta.persistence.Column;
+import br.unitins.hello.model.PerfilTipo;
+
 
 public record UserDTO(
     String nomeCompleto,
     String login,
-   String telefone
+   String telefone,
+   String cpf,
+   String email,
+   String senha,
+   PerfilTipo perfil
    
 ) {
    

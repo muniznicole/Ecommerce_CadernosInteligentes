@@ -23,6 +23,7 @@ public class UserResource {
     UserService service;
 
     @POST
+    @Transactional
     public Response insert(UserDTO dto) {
        return Response.status(Status.CREATED).entity(service.insert(dto)).build();
     }

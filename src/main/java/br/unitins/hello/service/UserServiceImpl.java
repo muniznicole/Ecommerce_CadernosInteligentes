@@ -16,20 +16,55 @@ public class UserServiceImpl implements UserService {
     UserRepository repository;
     @Override
     public UserResponseDTO insert(UserDTO dto) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'insert'");
+        Usuario novUsuario = new Usuario();
+        novUsuario.setNomeCompleto(dto.nomeCompleto());
+        novUsuario.setLogin(dto.login());
+        novUsuario.setSenha(dto.senha());
+        novUsuario.setTelefone(dto.telefone());
+        novUsuario.setCpf(dto.cpf());
+        novUsuario.setPerfil(dto.perfil().fromId(0));
+        repository.persist(novUsuario);
+
+        return UserResponseDTO.valueOf(novUsuario);
     }
 
     @Override
     public UserResponseDTO update(UserDTO dto, Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        Usuario usuario = repository.findById(id);
+        if(dto.login().equals("string")){
+        }else{
+            usuario.setLogin(dto.login());
+        }
+        if(dto.nomeCompleto().equals("string")){
+            
+        }else{
+            usuario.setNomeCompleto(dto.nomeCompleto());
+        }
+        if(dto.senha().equals("string")){
+            
+        }else{
+            usuario.setSenha(dto.senha());
+        }
+        if(dto.cpf().equals("string")){
+        }else{
+            usuario.setCpf(dto.cpf());
+        }
+        if(dto.email().equals("string")){
+        }else{
+            usuario.setEmail(dto.email());
+        }
+        if(dto.telefone().equals("string")){
+        }else{
+            usuario.setTelefone(dto.telefone());
+        }
+        usuario.setPerfil(dto.perfil());
+
+        return UserResponseDTO.valueOf(usuario);
     }
 
     @Override
-    public UserResponseDTO delete(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+    public void delete(Long id) {
+        repository.deleteById(id);
     }
 
     @Override
