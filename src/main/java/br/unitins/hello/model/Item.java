@@ -1,19 +1,24 @@
 package br.unitins.hello.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 
 @Entity
 public class Item extends DefaultEntity {
-
-    public enum TamanhoItem {
-        P,
-        M,
-        G
-    }
     
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tamanho_tipo")
+    private TamanhoTipo tamanho_tipo;
+
+    @Column
     private String nomeItem;
+    @Column
     private String descricaoItem;
-    private double precoItem;
+    @Column
+    private Double precoItem;
+    @Column
     private String imagemItem;
 
     public String getNomeItem() {
@@ -32,11 +37,11 @@ public class Item extends DefaultEntity {
         this.descricaoItem = descricaoItem;
     }
     
-    public double getPrecoItem() {
+    public Double getPrecoItem() {
         return precoItem;
     }
     
-    public void setPrecoItem(double precoItem) {
+    public void setPrecoItem(Double precoItem) {
         this.precoItem = precoItem;
     }
     
@@ -46,6 +51,14 @@ public class Item extends DefaultEntity {
     
     public void setImagemItem(String imagemItem) {
         this.imagemItem = imagemItem;
+    }
+
+    public TamanhoTipo getTamanho_tipo() {
+        return tamanho_tipo;
+    }
+
+    public void setTamanho_tipo(TamanhoTipo tamanho_tipo) {
+        this.tamanho_tipo = tamanho_tipo;
     }
 
 }

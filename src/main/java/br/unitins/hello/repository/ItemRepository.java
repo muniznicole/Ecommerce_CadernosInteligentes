@@ -9,6 +9,6 @@ import jakarta.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class ItemRepository implements PanacheRepository<Item>{
     public List<Item> findByNome(String nomeItem) {
-        return find("UPPER(nome) LIKE UPPER(?1) ", "%" + nomeItem + "%").list();
+        return find("UPPER(nomeItem) LIKE UPPER(?1) ", "%" + nomeItem + "%").list();
     }
 }
