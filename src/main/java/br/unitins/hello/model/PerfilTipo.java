@@ -25,6 +25,6 @@ public enum PerfilTipo  {
                 return status;
             }
         }
-        throw new IllegalArgumentException("ID de StatusPedido inválido: " + id);
+        throw new IllegalArgumentException("ID de Status inválido: " + id);
     }
 }
