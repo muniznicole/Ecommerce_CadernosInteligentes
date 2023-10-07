@@ -1,12 +1,15 @@
 package br.unitins.hello.model;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
-
+@Entity
 public class Endereco extends DefaultEntity {
     @Column(length = 60)
-    private String endereco;
+    private String quadra;
+    @Column(length = 60)
+    private String alameda;
     @Column(length = 60)
     private String complemento;
     @Column
@@ -15,12 +18,19 @@ public class Endereco extends DefaultEntity {
     private String cep;
       @OneToOne
     @JoinColumn(name = "id_cidade")
-    private Cidade cidadeEnderco;
-      public String getEndereco() {
-        return endereco;
+    private  Cidade cidadeEnderco;
+      
+      public String getQuadra() {
+        return quadra;
       }
-      public void setEndereco(String endereco) {
-        this.endereco = endereco;
+      public void setQuadra(String quadra) {
+        this.quadra = quadra;
+      }
+      public String getAlameda() {
+        return alameda;
+      }
+      public void setAlameda(String alameda) {
+        this.alameda = alameda;
       }
       public String getComplemento() {
         return complemento;
@@ -46,4 +56,6 @@ public class Endereco extends DefaultEntity {
       public void setCidadeEnderco(Cidade cidadeEnderco) {
         this.cidadeEnderco = cidadeEnderco;
       }
+     
+      
 }

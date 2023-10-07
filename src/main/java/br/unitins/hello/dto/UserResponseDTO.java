@@ -1,6 +1,5 @@
 package br.unitins.hello.dto;
 
-import br.unitins.hello.model.PerfilTipo;
 import br.unitins.hello.model.Usuario;
 
 public record UserResponseDTO(

@@ -7,30 +7,35 @@ import jakarta.persistence.Enumerated;
 
 @Entity
 public class Cartao extends DefaultEntity {
+    public String getNumeroCartao() {
+        return numeroCartao;
+    }
+
+    public void setNumeroCartao(String numeroCartao) {
+        this.numeroCartao = numeroCartao;
+    }
+
     @Column(length = 60)
     private String titularCartao;
-    
-  @Enumerated(EnumType.STRING)
+
+    @Enumerated(EnumType.STRING)
     @Column(name = "tipo_cartao")
     private Tipocartao tipoCartao;
     @Column
-    private Double numeroCartao;
+    private String numeroCartao;
 
     public String getTitularCartao() {
         return titularCartao;
     }
+
     public void setTitularCartao(String titularCartao) {
         this.titularCartao = titularCartao;
     }
-    public Double getNumeroCartao() {
-        return numeroCartao;
-    }
-    public void setNumeroCartao(Double numeroCartao) {
-        this.numeroCartao = numeroCartao;
-    }
+
     public Tipocartao getTipoCartao() {
         return tipoCartao;
     }
+
     public void setTipoCartao(Tipocartao tipoCartao) {
         this.tipoCartao = tipoCartao;
     }
