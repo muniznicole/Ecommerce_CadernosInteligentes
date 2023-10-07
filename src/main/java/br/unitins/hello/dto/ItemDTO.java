@@ -6,7 +6,7 @@ public record ItemDTO(
     
     String nomeItem,
     String descricaoItem,
-    double precoItem,
+    Double precoItem,
     TamanhoTipo tamanho_tipo,
     String imagemItem
 

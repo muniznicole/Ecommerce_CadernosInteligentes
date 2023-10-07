@@ -17,7 +17,7 @@ public class Item extends DefaultEntity {
     @Column
     private String descricaoItem;
     @Column
-    private double precoItem;
+    private Double precoItem;
     @Column
     private String imagemItem;
 
@@ -37,11 +37,11 @@ public class Item extends DefaultEntity {
         this.descricaoItem = descricaoItem;
     }
     
-    public double getPrecoItem() {
+    public Double getPrecoItem() {
         return precoItem;
     }
     
-    public void setPrecoItem(double precoItem) {
+    public void setPrecoItem(Double precoItem) {
         this.precoItem = precoItem;
     }
     
