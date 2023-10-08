@@ -14,9 +14,8 @@ public record ItemResponseDTO (
     
 ) {
     
-    public static ItemResponseDTO valueOf(Item item){
-
-        return new ItemResponseDTO(
+    public ItemResponseDTO(Item item){
+        this(
             item.getId(),
             item.getNomeItem(),
             item.getDescricaoItem(),
@@ -24,6 +23,5 @@ public record ItemResponseDTO (
             item.getTamanho_tipo(),
             item.getImagemItem()
         );
-    }
-    
+    } 
 }

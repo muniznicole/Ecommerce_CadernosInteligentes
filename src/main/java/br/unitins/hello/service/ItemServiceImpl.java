@@ -6,7 +6,6 @@ import br.unitins.hello.repository.ItemRepository;
 import br.unitins.hello.dto.ItemDTO;
 import br.unitins.hello.dto.ItemResponseDTO;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,7 +30,7 @@ public class ItemServiceImpl implements ItemService {
         novoItem.setImagemItem(dto.imagemItem());
         itemRepository.persist(novoItem);
 
-        return ItemResponseDTO.valueOf(novoItem);
+        return new ItemResponseDTO(novoItem);
 
     }
 
@@ -67,7 +66,7 @@ public class ItemServiceImpl implements ItemService {
             item.setImagemItem(dto.imagemItem());
         }
 
-        return ItemResponseDTO.valueOf(item);
+        return new ItemResponseDTO(item);
     }
 
     @Override
@@ -80,24 +79,26 @@ public class ItemServiceImpl implements ItemService {
         Item novoItem = new Item();
         novoItem = itemRepository.findById(id);
         
-        return ItemResponseDTO.valueOf((novoItem));
+        return new ItemResponseDTO((novoItem));
     }
 
     @Override
     public List<ItemResponseDTO> findByNome(String nomeItem) {
-        List<Item> listItem = new ArrayList();
-        listItem = itemRepository.findByNome(nomeItem);
-        List<ItemResponseDTO> itemDTOList = listItem.stream()
-            .map(e -> ItemResponseDTO.valueOf(e))
-            .collect(Collectors.toList());
-        
-        return itemDTOList;
+        List<Item> list = itemRepository.findByNome(nomeItem);
+        if(list == null)
+            throw new NullPointerException("nenhum item encontrado");
+
+        return list.stream()
+                .map(ItemResponseDTO::new)
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<ItemResponseDTO> findByAll() {
-        return itemRepository.listAll().stream()
-        .map(e -> ItemResponseDTO.valueOf(e)).toList();
+        return itemRepository.findAll()
+                .stream()
+                .map(ItemResponseDTO::new)
+                .collect(Collectors.toList());
     }
     
 }
