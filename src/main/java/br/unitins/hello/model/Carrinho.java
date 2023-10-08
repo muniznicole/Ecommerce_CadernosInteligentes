@@ -9,8 +9,8 @@ import jakarta.persistence.OneToOne;
 public class Carrinho extends DefaultEntity {
 
     @OneToOne
-    @JoinColumn(name = "id_itemCompra")
-    private ItemCompra itemCompra;
+    @JoinColumn(name = "id_item")
+    private Item item;
 
     @OneToOne
     @JoinColumn(name = "id_usuario")
@@ -18,14 +18,6 @@ public class Carrinho extends DefaultEntity {
 
     @Column
     private double precoTotalCarrinho;
-
-    public ItemCompra getItemCompra() {
-        return itemCompra;
-    }
-
-    public void setItemCompra(ItemCompra itemCompra) {
-        this.itemCompra = itemCompra;
-    }
 
     public Usuario getUsuario() {
         return usuario;
@@ -41,6 +33,14 @@ public class Carrinho extends DefaultEntity {
 
     public void setPrecoTotalCarrinho(double precoTotalCarrinho) {
         this.precoTotalCarrinho = precoTotalCarrinho;
+    }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
     }
 
 }
