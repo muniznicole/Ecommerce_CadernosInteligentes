@@ -7,7 +7,6 @@ import br.unitins.hello.repository.UserRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,7 +26,7 @@ public class UserServiceImpl implements UserService {
         novUsuario.setPerfil(dto.perfil().fromId(0));
         repository.persist(novUsuario);
 
-        return UserResponseDTO.valueOf(novUsuario);
+        return new UserResponseDTO(novUsuario);
     }
 
     @Override
@@ -61,7 +60,7 @@ public class UserServiceImpl implements UserService {
         }
         usuario.setPerfil(dto.perfil());
 
-        return UserResponseDTO.valueOf(usuario);
+        return new UserResponseDTO(usuario);
     }
 
     @Override
@@ -73,17 +72,18 @@ public class UserServiceImpl implements UserService {
     public UserResponseDTO findbyid(Long id) {
         Usuario novoUser = new Usuario();
         novoUser = repository.findById(id);
-        return UserResponseDTO.valueOf(novoUser);
+        return new UserResponseDTO(novoUser);
     }
 
     @Override
     public List<UserResponseDTO> findbyNome(String nome) {
-        List<Usuario> listuser = new ArrayList();
-        listuser = repository.findByNome(nome);
-        List<UserResponseDTO> usuarioDTOList = listuser.stream()
-                .map(e -> UserResponseDTO.valueOf(e))
-                .collect(Collectors.toList());
-        return usuarioDTOList;
+        List<Usuario> list = repository.findByNome(nome);
+        if(list == null)
+            throw new NullPointerException("Estoque não encontrado.");
+        
+        return list.stream()
+                        .map(UserResponseDTO::new)
+                        .collect(Collectors.toList());
     }
 
 }

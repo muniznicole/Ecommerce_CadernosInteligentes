@@ -6,9 +6,7 @@ import java.util.stream.Collectors;
 
 import br.unitins.hello.dto.CartaoDTO;
 import br.unitins.hello.dto.CartaoResponseDTO;
-import br.unitins.hello.dto.UserResponseDTO;
 import br.unitins.hello.model.Cartao;
-import br.unitins.hello.model.Usuario;
 import br.unitins.hello.repository.CartaoRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
