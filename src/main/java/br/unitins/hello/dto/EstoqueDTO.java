@@ -1,11 +1,14 @@
 package br.unitins.hello.dto;
 
-import java.util.List;
+import jakarta.validation.constraints.NotBlank;
 
 public record EstoqueDTO(
     
+    @NotBlank(message = "O campo descricaoEstoque não pode ser nulo.")
     String descricaoEstoque,
+    @NotBlank(message = "O campo quantidade não pode ser nulo.")
     int quantidade,
-    List<ItemResponseDTO> itemList
-
+    @NotBlank(message = "O campo idItem não pode ser nulo.")
+    Long idItem
+    
 ) {}

@@ -6,13 +6,8 @@ import br.unitins.hello.dto.EstoqueDTO;
 import br.unitins.hello.dto.EstoqueResponseDTO;
 
 import br.unitins.hello.model.Item;
-import br.unitins.hello.model.TamanhoTipo;
-import br.unitins.hello.model.Usuario;
 import br.unitins.hello.repository.ItemRepository;
-import br.unitins.hello.dto.ItemDTO;
-import br.unitins.hello.dto.ItemResponseDTO;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,6 +21,9 @@ public class EstoqueServiceImpl implements EstoqueService {
     @Inject
     EstoqueRepository repository;
 
+    @Inject
+    ItemRepository itemRepository;
+
     @Override
     @Transactional
     public EstoqueResponseDTO insert(EstoqueDTO dto) {
@@ -33,23 +31,13 @@ public class EstoqueServiceImpl implements EstoqueService {
         Estoque novoEstoque = new Estoque();
         novoEstoque.setDescricaoEstoque(dto.descricaoEstoque());
         novoEstoque.setQuantidade(dto.quantidade());
-        
-        if(dto.itemList() != null && !dto.itemList().isEmpty()){
-            novoEstoque.setItemList(new ArrayList<Item>());
-            for(ItemResponseDTO item: dto.itemList()){
-                Item itemitem = new Item();
-                itemitem.setNomeItem(item.nomeItem());
-                itemitem.setDescricaoItem(item.descricaoItem());
-                itemitem.setPrecoItem(item.precoItem());
-                itemitem.setTamanho_tipo(item.tamanho_tipo());
-                itemitem.setImagemItem(item.imagemItem());
-                novoEstoque.getItemList().add(itemitem);
-            }
-        }
+
+        Item idDoItem = itemRepository.findById(dto.idItem());
+        novoEstoque.setItem(idDoItem);
 
         repository.persist(novoEstoque);
 
-        return EstoqueResponseDTO.valueOf(novoEstoque);
+        return new EstoqueResponseDTO(novoEstoque);
     }
 
     @Override
@@ -62,23 +50,12 @@ public class EstoqueServiceImpl implements EstoqueService {
         } else {
             estoque.setDescricaoEstoque(dto.descricaoEstoque());
         }
-        
+
         estoque.setQuantidade(dto.quantidade());
+        Item idDoItem = itemRepository.findById(dto.idItem());
+        estoque.setItem(idDoItem);     
 
-        if(dto.itemList() != null && !dto.itemList().isEmpty()){
-            estoque.setItemList(new ArrayList<Item>());
-            for(ItemResponseDTO item: dto.itemList()){
-                Item itemitem = new Item();
-                itemitem.setNomeItem(item.nomeItem());
-                itemitem.setDescricaoItem(item.descricaoItem());
-                itemitem.setPrecoItem(item.precoItem());
-                itemitem.setTamanho_tipo(item.tamanho_tipo());
-                itemitem.setImagemItem(item.imagemItem());
-                estoque.getItemList().add(itemitem);
-            }
-        }        
-
-        return EstoqueResponseDTO.valueOf(estoque);
+        return new EstoqueResponseDTO(estoque);
     }
 
     @Override
@@ -89,19 +66,26 @@ public class EstoqueServiceImpl implements EstoqueService {
 
     @Override
     public EstoqueResponseDTO findById(Long id) {
-        return EstoqueResponseDTO.valueOf(repository.findById(id));
+        return new EstoqueResponseDTO(repository.findById(id));
     }
 
     @Override
     public List<EstoqueResponseDTO> findByNome(String descricaoEstoque) {
-        return null;
+        List<Estoque> list = repository.findByNome(descricaoEstoque);
+        if(list == null)
+            throw new NullPointerException("Estoque não encontrado.");
+        
+        return list.stream()
+                        .map(EstoqueResponseDTO::new)
+                        .collect(Collectors.toList());
     }
 
     @Override
     public List<EstoqueResponseDTO> findByAll() {
-        return repository.listAll()
-            .stream()
-            .map(e -> EstoqueResponseDTO.valueOf(e)).toList();
+        return repository.findAll()
+                        .stream()
+                        .map(EstoqueResponseDTO::new)
+                        .collect(Collectors.toList());
     }
     
 }

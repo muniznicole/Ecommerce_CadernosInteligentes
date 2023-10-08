@@ -1,28 +1,24 @@
 package br.unitins.hello.model;
 
-import java.util.List;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.CascadeType;
 
 @Entity
 public class Estoque extends DefaultEntity {
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_item", unique = true)
+    private Item item;
     
     @Column
     private String descricaoEstoque; 
 
     @Column
     private int quantidade; // Quantidade disponível em estoque
-
-    @OneToMany
-    @JoinTable(name="item_estoque",
-        joinColumns= @JoinColumn(name="id_estoque"),
-        inverseJoinColumns = @JoinColumn(name="id_item") )
-    private List<Item> itemList;
-
+    
     public String getDescricaoEstoque() {
         return descricaoEstoque;
     }
@@ -39,12 +35,12 @@ public class Estoque extends DefaultEntity {
         this.quantidade = quantidade;
     }
 
-    public List<Item> getItemList() {
-        return itemList;
+    public Item getItem() {
+        return item;
     }
 
-    public void setItemList(List<Item> itemList) {
-        this.itemList = itemList;
+    public void setItem(Item item) {
+        this.item = item;
     }
 
 }
