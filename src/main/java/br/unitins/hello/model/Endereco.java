@@ -3,6 +3,7 @@ package br.unitins.hello.model;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 @Entity
 public class Endereco extends DefaultEntity {
@@ -16,7 +17,7 @@ public class Endereco extends DefaultEntity {
     private Integer numero;
     @Column(length = 60)
     private String cep;
-      @OneToOne
+      @ManyToOne
     @JoinColumn(name = "id_cidade")
     private  Cidade cidadeEnderco;
       

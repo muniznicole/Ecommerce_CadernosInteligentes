@@ -46,7 +46,7 @@ public class CarrinhoServiceImpl implements CarrinhoService {
 
         repository.persist(novoCarrinho);
 
-        return new CarrinhoResponseDTO(novoCarrinho);
+        return  CarrinhoResponseDTO.valueOf(novoCarrinho);
     }
 
     @Override
@@ -64,7 +64,7 @@ public class CarrinhoServiceImpl implements CarrinhoService {
 
         carrinho.setPrecoTotalCarrinho(dto.preco());
 
-        return new CarrinhoResponseDTO(carrinho);
+        return  CarrinhoResponseDTO.valueOf(carrinho);
     }
 
     @Override
@@ -75,14 +75,14 @@ public class CarrinhoServiceImpl implements CarrinhoService {
 
     @Override
     public CarrinhoResponseDTO findById(Long id) {
-        return new CarrinhoResponseDTO(repository.findById(id));
+        return  CarrinhoResponseDTO.valueOf(repository.findById(id));
     }
 
     @Override
     public List<CarrinhoResponseDTO> findByAll() {
         return repository.findAll()
                         .stream()
-                        .map(CarrinhoResponseDTO::new)
+                        .map(e -> CarrinhoResponseDTO.valueOf(e))
                         .collect(Collectors.toList());
     }
 }

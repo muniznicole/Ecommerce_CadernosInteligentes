@@ -11,4 +11,6 @@ public interface UserService {
     public void delete(Long id);
     public UserResponseDTO findbyid(Long id);
     public List<UserResponseDTO> findbyNome(String nome);
+    public UserResponseDTO findByLogin(String login);
+    public UserResponseDTO findByLogineSenha(String login, String senha);
 }

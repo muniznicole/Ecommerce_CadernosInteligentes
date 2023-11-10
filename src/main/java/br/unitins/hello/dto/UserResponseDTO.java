@@ -10,12 +10,13 @@ public record UserResponseDTO(
         String perfil
 
 ) {
-    public UserResponseDTO(Usuario usuario) {
-        this(
-                usuario.getNomeCompleto(),
-                usuario.getLogin(),
-                usuario.getTelefone(),
-                usuario.getId(),
-                usuario.getPerfil().getDescricao());
+    public static UserResponseDTO valueOf(Usuario usuario){
+
+        return new UserResponseDTO(
+            usuario.getNomeCompleto(),
+            usuario.getLogin(),
+            usuario.getTelefone(),
+            usuario.getId(),
+            usuario.getPerfil().getDescricao());
     }
 }

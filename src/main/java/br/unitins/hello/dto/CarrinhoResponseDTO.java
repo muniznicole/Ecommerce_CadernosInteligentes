@@ -2,17 +2,20 @@ package br.unitins.hello.dto;
 
 import br.unitins.hello.model.Carrinho;
 
+import br.unitins.hello.model.Item;
+import br.unitins.hello.model.Usuario;
+
 public record CarrinhoResponseDTO(
-    ItemResponseDTO item,
-    UserResponseDTO usuario,
+    Item item,
+    Usuario usuario,
     Double preco
 
 ) {
-    public CarrinhoResponseDTO(Carrinho carrinho) {
-        this(
-            new ItemResponseDTO(carrinho.getItem()),
-            new UserResponseDTO(carrinho.getUsuario()),
-            carrinho.getPrecoTotalCarrinho()
+    public static CarrinhoResponseDTO valueOf(Carrinho carrinho) {        
+        return new CarrinhoResponseDTO(
+           carrinho.getItem(),
+           carrinho.getUsuario(),
+           carrinho.getPrecoTotalCarrinho()
         );
-    }
+    } 
 }
