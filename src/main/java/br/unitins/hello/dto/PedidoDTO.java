@@ -2,8 +2,7 @@ package br.unitins.hello.dto;
 
 import jakarta.validation.constraints.NotBlank;
 
-public record CarrinhoDTO (
-    
+public record PedidoDTO (
     @NotBlank(message = "O campo item não pode ser nulo.")
     Long item,
     @NotBlank(message = "O campo usuario não pode ser nulo.")
@@ -14,3 +13,4 @@ public record CarrinhoDTO (
 ){
     
 }
+    

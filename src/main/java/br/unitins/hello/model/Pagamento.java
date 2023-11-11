@@ -11,8 +11,8 @@ import jakarta.persistence.OneToOne;
 public class Pagamento extends DefaultEntity {
     
     @OneToOne
-    @JoinColumn(name = "id_carrinho")
-    private Carrinho carrinho;
+    @JoinColumn(name = "id_Pedido")
+    private Pedido pedido;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_pagamento")
@@ -25,12 +25,12 @@ public class Pagamento extends DefaultEntity {
     @Column
     private String StatusPagamento;
 
-    public Carrinho getCarrinho() {
-        return carrinho;
+    public Pedido getPedido() {
+        return pedido;
     }
 
-    public void setCarrinho(Carrinho carrinho) {
-        this.carrinho = carrinho;
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
     }
 
     public PagamentoTipo getPagamentoTipo() {

@@ -59,4 +59,9 @@ public class ItemResource {
         return Response.ok(itemService.findByNome(nomeItem)).build();
     }
 
+    @GET
+    public Response findByAll() {
+        return Response.ok(itemService.findByAll()).build();
+    }
+
 }

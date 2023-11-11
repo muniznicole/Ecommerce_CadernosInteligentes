@@ -1,7 +1,7 @@
 package br.unitins.hello.resource;
 
-import br.unitins.hello.dto.CarrinhoDTO;
-import br.unitins.hello.service.CarrinhoService;
+import br.unitins.hello.dto.PedidoDTO;
+import br.unitins.hello.service.PedidoService;
 
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -17,25 +17,25 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
 
-@Path("/carrinho")
+@Path("/pedido")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class CarrinhoResource {
+public class PedidoResource {
 
     @Inject
-    CarrinhoService carrinhoService;
+    PedidoService pedidoService;
 
     @POST
     @Transactional
-    public Response insert(CarrinhoDTO dto) {
-       return Response.status(Status.CREATED).entity(carrinhoService.insert(dto)).build();
+    public Response insert(PedidoDTO dto) {
+       return Response.status(Status.CREATED).entity(pedidoService.insert(dto)).build();
     }
 
     @PUT
     @Transactional
     @Path("/{id}")
-    public Response update(CarrinhoDTO dto, @PathParam("id") Long id) {
-        carrinhoService.update(dto, id);
+    public Response update(PedidoDTO dto, @PathParam("id") Long id) {
+        pedidoService.update(dto, id);
         return Response.noContent().build();
     }
 
@@ -43,20 +43,20 @@ public class CarrinhoResource {
     @Transactional
     @Path("/{id}")
     public Response delete(@PathParam("id") Long id) {
-        carrinhoService.delete(id);
+        pedidoService.delete(id);
         return Response.noContent().build();
     }
 
     @GET
     @Path("/{id}")
     public Response findById(@PathParam("id") Long id) {
-        return Response.ok(carrinhoService.findById(id)).build();
+        return Response.ok(pedidoService.findById(id)).build();
     }
     
     // @GET
-    // @Path("/search/carrinho/{carrinho}")
-    // public Response findByNome(@PathParam("carrinho") String descricaoEstoque) {
-    //    return Response.ok(carrinhoService.findByNome(descricaoEstoque)).build();
+    // @Path("/search/pedido/{pedido}")
+    // public Response findByNome(@PathParam("pedido") String descricaoEstoque) {
+    //    return Response.ok(pedidoService.findByNome(descricaoEstoque)).build();
     //}
 
 }

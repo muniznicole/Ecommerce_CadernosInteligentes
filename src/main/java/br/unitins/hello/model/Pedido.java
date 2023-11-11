@@ -6,7 +6,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 
 @Entity
-public class Carrinho extends DefaultEntity {
+public class Pedido extends DefaultEntity {
 
     @OneToOne
     @JoinColumn(name = "id_item")
@@ -17,7 +17,7 @@ public class Carrinho extends DefaultEntity {
     private Usuario usuario;
 
     @Column
-    private double precoTotalCarrinho;
+    private double precoTotalPedido;
 
     public Usuario getUsuario() {
         return usuario;
@@ -27,12 +27,12 @@ public class Carrinho extends DefaultEntity {
         this.usuario = usuario;
     }
 
-    public double getPrecoTotalCarrinho() {
-        return precoTotalCarrinho;
+    public double getPrecoTotalPedido() {
+        return precoTotalPedido;
     }
 
-    public void setPrecoTotalCarrinho(double precoTotalCarrinho) {
-        this.precoTotalCarrinho = precoTotalCarrinho;
+    public void setPrecoTotalPedido(double precoTotalPedido) {
+        this.precoTotalPedido = precoTotalPedido;
     }
 
     public Item getItem() {

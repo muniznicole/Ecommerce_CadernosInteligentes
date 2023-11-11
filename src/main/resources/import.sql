@@ -32,9 +32,9 @@ insert into estoque (id_item, descricaoEstoque, quantidade) values(1, 'Texto1', 
 insert into estoque (id_item, descricaoEstoque, quantidade) values(2, 'Texto2', 20);
 insert into estoque (id_item, descricaoEstoque, quantidade) values(3, 'Texto3', 30);
 
-insert into carrinho (id_item, id_usuario, precoTotalCarrinho) values(1, 1, 100.00);
-insert into carrinho (id_item, id_usuario, precototalcarrinho) values(2, 2, 200.00);
-insert into carrinho (id_item, id_usuario, precototalcarrinho) values(3, 3, 300.00);
+insert into pedido (id_item, id_usuario, precoTotalPedido) values(1, 1, 100.00);
+insert into pedido (id_item, id_usuario, precototalPedido) values(2, 2, 200.00);
+insert into pedido (id_item, id_usuario, precototalPedido) values(3, 3, 300.00);
 
 
 
