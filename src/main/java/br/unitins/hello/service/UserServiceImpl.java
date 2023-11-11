@@ -19,7 +19,8 @@ public class UserServiceImpl implements UserService {
         Usuario novUsuario = new Usuario();
         novUsuario.setNomeCompleto(dto.nomeCompleto());
         novUsuario.setLogin(dto.login());
-        novUsuario.setSenha(dto.senha());
+        HashService service = new HashServiceImpl();
+        novUsuario.setSenha(service.getHashSenha(dto.senha()));;
         novUsuario.setTelefone(dto.telefone());
         novUsuario.setCpf(dto.cpf());
         novUsuario.setPerfil(dto.perfil().fromId(0));
@@ -43,7 +44,8 @@ public class UserServiceImpl implements UserService {
         if (dto.senha().equals("string")) {
 
         } else {
-            usuario.setSenha(dto.senha());
+             HashService service = new HashServiceImpl();
+            usuario.setSenha(service.getHashSenha(dto.senha()));
         }
         if (dto.cpf().equals("string")) {
         } else {
