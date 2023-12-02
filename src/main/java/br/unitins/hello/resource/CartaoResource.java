@@ -1,9 +1,10 @@
 package br.unitins.hello.resource;
 
+import org.jboss.logging.Logger;
+
 import br.unitins.hello.dto.CartaoDTO;
-
 import br.unitins.hello.service.CartaoService;
-
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.Consumes;
@@ -21,30 +22,45 @@ import jakarta.ws.rs.core.Response.Status;
 @Path("/cartao")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@RolesAllowed({"User", "Administrador"})
 public class CartaoResource {
+
     @Inject
     CartaoService service;
+
+    private static final Logger LOG = Logger.getLogger(CartaoResource.class);
 
     @POST
     @Transactional
     public Response insert(CartaoDTO dto) {
+        
+        LOG.info("Criando um novo cartão...");    
         return Response.status(Status.CREATED).entity(service.insert(dto)).build();
+
     }
 
     @PUT
     @Transactional
     @Path("/{id}")
     public Response update(CartaoDTO dto, @PathParam("id") Long id) {
+        
         service.update(dto, id);
+        LOG.info("Fazendo update do cartão...");
+        LOG.warn("Este cartão está sendo atualizado!");
         return Response.noContent().build();
+
     }
 
     @DELETE
     @Transactional
     @Path("/{id}")
     public Response delete(@PathParam("id") Long id) {
+        
         service.delete(id);
+        LOG.info("Deletando um cartão...");
+        LOG.warn("Este cartão está sendo deletado");
         return Response.noContent().build();
+        
     }
 
     @GET

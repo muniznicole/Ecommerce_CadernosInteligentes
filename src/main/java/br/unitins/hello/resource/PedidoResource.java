@@ -1,8 +1,10 @@
 package br.unitins.hello.resource;
 
+import org.jboss.logging.Logger;
+
 import br.unitins.hello.dto.PedidoDTO;
 import br.unitins.hello.service.PedidoService;
-
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.Consumes;
@@ -20,22 +22,31 @@ import jakarta.ws.rs.core.Response.Status;
 @Path("/pedido")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@RolesAllowed({"User", "Administrador"})
 public class PedidoResource {
 
     @Inject
     PedidoService pedidoService;
 
+    private static final Logger LOG = Logger.getLogger(PedidoResource.class);
+
     @POST
     @Transactional
     public Response insert(PedidoDTO dto) {
-       return Response.status(Status.CREATED).entity(pedidoService.insert(dto)).build();
+        
+        LOG.info("Criando um novo pedido..."); 
+        return Response.status(Status.CREATED).entity(pedidoService.insert(dto)).build();
+    
     }
 
     @PUT
     @Transactional
     @Path("/{id}")
     public Response update(PedidoDTO dto, @PathParam("id") Long id) {
+        
         pedidoService.update(dto, id);
+        LOG.info("Atualizando pedido...");
+        LOG.warn("Este pedido está sendo atualizado!");
         return Response.noContent().build();
     }
 
@@ -43,8 +54,12 @@ public class PedidoResource {
     @Transactional
     @Path("/{id}")
     public Response delete(@PathParam("id") Long id) {
+        
         pedidoService.delete(id);
+        LOG.info("Deletando pedido...");
+        LOG.warn("Este pedido está sendo deletado!");
         return Response.noContent().build();
+    
     }
 
     @GET
