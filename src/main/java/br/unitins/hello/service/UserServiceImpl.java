@@ -12,7 +12,7 @@ import java.util.List;
 @ApplicationScoped
 public class UserServiceImpl implements UserService {
     @Inject
-    UserRepository repository ;
+    UserRepository repository;
 
     @Override
     public UserResponseDTO insert(UserDTO dto) {
