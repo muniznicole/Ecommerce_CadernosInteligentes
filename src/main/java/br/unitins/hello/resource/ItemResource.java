@@ -1,5 +1,7 @@
 package br.unitins.hello.resource;
 
+import org.jboss.logging.Logger;
+
 import java.io.IOException;
 
 import org.eclipse.microprofile.jwt.JsonWebToken;
@@ -33,29 +35,43 @@ public class ItemResource {
 
     @Inject
     ItemService itemService;
+
     @Inject
     JsonWebToken jwt;
-   
+
+    private static final Logger LOG = Logger.getLogger(ItemResource.class);
+
     @POST
     @Transactional
     public Response insert(ItemDTO dto) {
-       return Response.status(Status.CREATED).entity(itemService.insert(dto)).build();
+
+        LOG.info("Criando um novo item..."); 
+        return Response.status(Status.CREATED).entity(itemService.insert(dto)).build();
+    
     }
 
     @PUT
     @Transactional
     @Path("/{id}")
     public Response update(ItemDTO dto, @PathParam("id") Long id) {
+        
         itemService.update(dto, id);
+        LOG.info("Atualizando item...");
+        LOG.warn("Este item está sendo atualizado!");
         return Response.noContent().build();
+    
     }
 
     @DELETE
     @Transactional
     @Path("/{id}")
     public Response delete(@PathParam("id") Long id) {
+        
         itemService.delete(id);
+        LOG.info("Deletando item...");
+        LOG.warn("Este item está sendo deletado!");
         return Response.noContent().build();
+    
     }
 
     @GET

@@ -1,5 +1,7 @@
 package br.unitins.hello.resource;
 
+import org.jboss.logging.Logger;
+
 import br.unitins.hello.dto.UserDTO;
 import br.unitins.hello.service.UserService;
 import jakarta.annotation.security.RolesAllowed;
@@ -16,19 +18,25 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
+
 @Path("/user")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-
 public class UserResource {
+    
     @Inject
     UserService service;
+
+    private static final Logger LOG = Logger.getLogger(UserResource.class);
 
     @POST
     @Transactional
     @RolesAllowed( "Administrador")
     public Response insert(UserDTO dto) {
-       return Response.status(Status.CREATED).entity(service.insert(dto)).build();
+
+        LOG.info("Criando um novo usuário..."); 
+        return Response.status(Status.CREATED).entity(service.insert(dto)).build();
+    
     }
 
     @PUT
@@ -36,8 +44,12 @@ public class UserResource {
     @Path("/{id}")
     @RolesAllowed({"User", "Administrador"})
     public Response update(UserDTO dto, @PathParam("id") Long id) {
+    
         service.update(dto, id);
+        LOG.info("Atualizando usuário...");
+        LOG.warn("Este usuário está sendo atualizado!");
         return Response.noContent().build();
+    
     }
 
     @DELETE
@@ -45,8 +57,12 @@ public class UserResource {
     @Path("/{id}")
     @RolesAllowed({"User", "Admin"})
     public Response delete(@PathParam("id") Long id) {
+        
         service.delete(id);
+        LOG.info("Deletando usuário...");
+        LOG.warn("Este usuário está sendo deletado!");
         return Response.noContent().build();
+    
     }
 
     @GET

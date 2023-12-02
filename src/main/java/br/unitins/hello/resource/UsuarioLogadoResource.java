@@ -1,8 +1,10 @@
 package br.unitins.hello.resource;
 
+import org.jboss.logging.Logger;
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
 import br.unitins.hello.service.UserService;
+
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
@@ -23,13 +25,15 @@ public class UsuarioLogadoResource {
     @Inject
     UserService usuarioService;
 
+    private static final Logger LOG = Logger.getLogger(UsuarioLogadoResource.class);
+
     @GET
     @RolesAllowed({ "User", "Admin" })
     public Response getUsuario() {
 
         // obtendo o login pelo token jwt
-        String login = jwt.getSubject();
-
+        String login = jwt.getSubject(); 
+        LOG.info("Obtendo o login pelo token jwt...");
         return Response.ok(usuarioService.findByLogin(login)).build();
 
     }
