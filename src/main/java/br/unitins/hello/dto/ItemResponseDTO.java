@@ -14,14 +14,14 @@ public record ItemResponseDTO (
     
 ) {
     
-    public ItemResponseDTO(Item item){
-        this(
+    public static ItemResponseDTO valueOf(Item item){
+        return new ItemResponseDTO(
             item.getId(),
             item.getNomeItem(),
             item.getDescricaoItem(),
             item.getPrecoItem(),
             item.getTamanho_tipo(),
-            item.getImagemItem()
+            item.getNomeImagemItem()
         );
     } 
 }

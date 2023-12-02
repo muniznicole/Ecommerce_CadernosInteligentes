@@ -19,7 +19,7 @@ public class Item extends DefaultEntity {
     @Column
     private Double precoItem;
     @Column
-    private String imagemItem;
+    private String nomeImagemItem;
 
     public String getNomeItem() {
         return nomeItem;
@@ -45,13 +45,7 @@ public class Item extends DefaultEntity {
         this.precoItem = precoItem;
     }
     
-    public String getImagemItem() {
-        return imagemItem;
-    }
     
-    public void setImagemItem(String imagemItem) {
-        this.imagemItem = imagemItem;
-    }
 
     public TamanhoTipo getTamanho_tipo() {
         return tamanho_tipo;
@@ -59,6 +53,14 @@ public class Item extends DefaultEntity {
 
     public void setTamanho_tipo(TamanhoTipo tamanho_tipo) {
         this.tamanho_tipo = tamanho_tipo;
+    }
+
+    public String getNomeImagemItem() {
+        return nomeImagemItem;
+    }
+
+    public void setNomeImagemItem(String nomeImagemItem) {
+        this.nomeImagemItem = nomeImagemItem;
     }
 
 }

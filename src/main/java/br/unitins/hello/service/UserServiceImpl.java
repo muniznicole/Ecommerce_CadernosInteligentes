@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService {
         novUsuario.setNomeCompleto(dto.nomeCompleto());
         novUsuario.setLogin(dto.login());
         HashService service = new HashServiceImpl();
-        novUsuario.setSenha(service.getHashSenha(dto.senha()));;
+        novUsuario.setSenha(service.getHashSenha(dto.senha()));
         novUsuario.setTelefone(dto.telefone());
         novUsuario.setCpf(dto.cpf());
         novUsuario.setPerfil(dto.perfil().fromId(0));
