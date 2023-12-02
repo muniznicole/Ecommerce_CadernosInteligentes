@@ -43,7 +43,7 @@ public class UserResource {
     @DELETE
     @Transactional
     @Path("/{id}")
-    @RolesAllowed({"User", "Admin"})
+    @RolesAllowed({"User", "Administrador"})
     public Response delete(@PathParam("id") Long id) {
         service.delete(id);
         return Response.noContent().build();
@@ -51,14 +51,14 @@ public class UserResource {
 
     @GET
     @Path("/{id}")
-    @RolesAllowed({"User", "Admin"})
+    @RolesAllowed({"User", "Administrador"})
     public Response findById(@PathParam("id") Long id) {
         return Response.ok(service.findbyid(id)).build();
     }
     
     @GET
     @Path("/search/nome/{nome}")
-    @RolesAllowed({"User", "Admin"})
+    @RolesAllowed({"User", "Administrador"})
     public Response findByNome(@PathParam("nome") String nome) {
         return Response.ok(service.findbyNome(nome)).build();
     }
