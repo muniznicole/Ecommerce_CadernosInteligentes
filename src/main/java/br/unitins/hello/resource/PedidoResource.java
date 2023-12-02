@@ -4,7 +4,7 @@ import org.jboss.logging.Logger;
 
 import br.unitins.hello.dto.PedidoDTO;
 import br.unitins.hello.service.PedidoService;
-
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.Consumes;
@@ -22,6 +22,7 @@ import jakarta.ws.rs.core.Response.Status;
 @Path("/pedido")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@RolesAllowed({"User", "Administrador"})
 public class PedidoResource {
 
     @Inject

@@ -22,6 +22,7 @@ import jakarta.ws.rs.core.Response.Status;
 @Path("/user")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@RolesAllowed({"User", "Administrador"})
 public class UserResource {
     
     @Inject

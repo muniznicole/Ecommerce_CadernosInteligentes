@@ -17,6 +17,7 @@ import jakarta.ws.rs.core.Response;
 @Path("/usuariologado")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@RolesAllowed({"User", "Administrador"})
 public class UsuarioLogadoResource {
 
     @Inject
