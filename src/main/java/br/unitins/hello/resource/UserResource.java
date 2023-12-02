@@ -32,7 +32,7 @@ public class UserResource {
 
     @POST
     @Transactional
-    @RolesAllowed( "Administrador")
+    @RolesAllowed("Administrador")
     public Response insert(UserDTO dto) {
 
         LOG.info("Criando um novo usuário..."); 
