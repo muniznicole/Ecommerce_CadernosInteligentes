@@ -7,9 +7,9 @@ import br.unitins.hello.model.Usuario;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.NoResultException;
+
 @ApplicationScoped
 public class UserRepository implements PanacheRepository<Usuario> {
-
     
      public List<Usuario> findByNome(String nome) {
         return find("UPPER(nomeCompleto) LIKE UPPER(?1) ", "%"+nome+"%").list();

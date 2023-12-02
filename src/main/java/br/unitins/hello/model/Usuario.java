@@ -13,11 +13,10 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.OneToMany;
 
-
-
 @Entity
 public class Usuario extends DefaultEntity{
-     @Column
+    
+    @Column
     private String nomeCompleto;
     @Column
     private String cpf;
@@ -29,6 +28,7 @@ public class Usuario extends DefaultEntity{
     private String email;
     @Column
     private String senha;
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinTable(name="usuario_cartao",
         joinColumns= @JoinColumn(name="id_usuario"),
@@ -36,8 +36,6 @@ public class Usuario extends DefaultEntity{
     private List<Cartao> cartaoUser;
     @Enumerated(EnumType.STRING)
     private PerfilTipo perfil;
-
-
 
     public List<Cartao> getCartaoUser() {
         return cartaoUser;
