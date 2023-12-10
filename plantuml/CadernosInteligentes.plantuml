@@ -1,14 +1,11 @@
 @startuml CadernosInteligentes
 
-    class Estoque {
-        - Map<chave, Item itemEstoque>
-    }
-
-    class Item {
+    class Produto {
         - String descricao
         - Double  precoUnidade
-        - TamanhoTipo tamanhoItem
-        - String  imagemItem
+        - TamanhoTipo tamanhoProduto
+        - String  imagemProduto
+        - Integer quantidade
     }
 
     enum TamanhoTipo {
@@ -30,7 +27,6 @@
         - String senha
         - Endereco enderecoUser
         - PerfilTipo perfilUser
-        - Cartao cartaoUser
     }
 
     class Endereco{
@@ -51,20 +47,16 @@
         - String abreviado
     }
 
-    class Carrinho{
-        - Venda vendaCarrinho
-        - User userCarrinho
-    }
 
     class Pagamento{
-        - Carrinho carrinhoCliente
+        - PagamentoTipo PagamentoTipo
+        - Cartao cartaoPagamento
         - String statusPagamento
     }
 
     class Cartao{
-        - String titularCarto
+        - String titularCartao
         - Double numeroCartao
-        - User user
         - Tipocartao tipoCartao
     }
 
@@ -79,28 +71,29 @@
         CARTAO
     }
 
-    class ItemVenda{
-        - Double preco
+    class Compra{
+        - Date dataCompra
+        - List<ProdutoCompra> produto
+        - Pagamento pagamentoCompra
+    }
+
+    class ProdutoCompra{
+        - Produto produtoCompra
         - Integer quantidade
     }
 
-    class Venda{
-        - Date dataCompra
-    }
-
-    Item  ---  TamanhoTipo
-    User  ---  PerfilTipo
+    Produto "1" <--- "1" TamanhoTipo
+    ProdutoCompra "1" <---* "1 ... *" Compra
+    Produto "1" <---* "1 ... *" ProdutoCompra
+    User "1  " <--- "  1" PerfilTipo
     User <|---  Endereco
+    User "1" *---> "1...*" Compra
     Endereco <|---  Cidade
-    Cidade " 1...* " o--- "1" Estado
-    Cartao "1" --- "1" CartaoTipo
-    Carrinho "1" --- "1" PagamentoTipo
-    Venda "1" o-up-- "0..*" Carrinho
-    ItemVenda "1...*" --- "1"Estoque 
-    Item "1   " *--- "1....*" Estoque 
-    Venda " 1...* " --up-o "1...*" ItemVenda
-    User "1" *--- "1...*" Carrinho
-    Carrinho "1" o--- "1" Pagamento
-    User "1" *-- "0..*" Cartao
+    Cidade " 1...* " o---> "1" Estado
+    Cartao "1" <--- "1" CartaoTipo
+    Compra "1" o---> "1" Pagamento
+    Pagamento <--- PagamentoTipo
+    Pagamento <--- Cartao
+
 
 @endstartuml
