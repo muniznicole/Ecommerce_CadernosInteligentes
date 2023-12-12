@@ -21,7 +21,7 @@ import jakarta.ws.rs.core.Response;
 @Path("/auth")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class AuthResource {
+public class AuthFuncionarioResource {
 
     @Inject
     UserService service;
@@ -32,7 +32,7 @@ public class AuthResource {
     @Inject
     JwtService jwtService;
 
-    private static final Logger LOG = Logger.getLogger(AuthResource.class);
+    private static final Logger LOG = Logger.getLogger(AuthFuncionarioResource.class);
 
     @POST
     public Response login (@Valid LoginDTO dto ){

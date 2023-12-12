@@ -24,17 +24,6 @@ insert into usuario (nomeCompleto,cpf,login,telefone,email,senha,perfil) values(
 insert into usuario (nomeCompleto,cpf,login,telefone,email,senha,perfil) values('Andreia Barreira de Catro','1234556','Quico','63985139583','andreghoul18@gmail.com','123456','CLIENTE');
 
 -- CRUDS NICOLE
-insert into item (nomeItem, descricaoItem, precoItem, tamanho_tipo) values('Caderno da Barbie','Caderno Inteligente Grande', 40.00, 'GRANDE');
-insert into item (nomeItem, descricaoItem, precoItem, tamanho_tipo) values('Caderno da Barbie','Caderno Inteligente Medio', 30.00, 'MEDIO');
-insert into item (nomeItem, descricaoItem, precoItem, tamanho_tipo) values('Caderno da Barbie','Caderno Inteligente Pequeno', 20.00, 'PEQUENO');
-
-insert into estoque (id_item, descricaoEstoque, quantidade) values(1, 'Texto1', 10);
-insert into estoque (id_item, descricaoEstoque, quantidade) values(2, 'Texto2', 20);
-insert into estoque (id_item, descricaoEstoque, quantidade) values(3, 'Texto3', 30);
-
-insert into pedido (id_item, id_usuario, precoTotalPedido) values(1, 1, 100.00);
-insert into pedido (id_item, id_usuario, precototalPedido) values(2, 2, 200.00);
-insert into pedido (id_item, id_usuario, precototalPedido) values(3, 3, 300.00);
 
 
 

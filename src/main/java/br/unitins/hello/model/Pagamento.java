@@ -5,33 +5,20 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 
 @Entity
-public class Pagamento extends DefaultEntity {
+public class Pagamento extends DefaultEntity{
     
-    @OneToOne
-    @JoinColumn(name = "id_Pedido")
-    private Pedido pedido;
-
     @Enumerated(EnumType.STRING)
-    @Column(name = "tipo_pagamento")
     private PagamentoTipo pagamentoTipo;
 
-    @OneToOne
-    @JoinColumn(name = "id_datacompra")
-    private DataCompra dataCompra;
+    @ManyToOne
+    @JoinColumn(name="id_cartao")
+    private Cartao cartaoPagamento;
 
     @Column
-    private String StatusPagamento;
-
-    public Pedido getPedido() {
-        return pedido;
-    }
-
-    public void setPedido(Pedido pedido) {
-        this.pedido = pedido;
-    }
+    private String statusPagamento;
 
     public PagamentoTipo getPagamentoTipo() {
         return pagamentoTipo;
@@ -41,20 +28,21 @@ public class Pagamento extends DefaultEntity {
         this.pagamentoTipo = pagamentoTipo;
     }
 
-    public DataCompra getDataCompra() {
-        return dataCompra;
+    public Cartao getCartaoPagamento() {
+        return cartaoPagamento;
     }
 
-    public void setDataCompra(DataCompra dataCompra) {
-        this.dataCompra = dataCompra;
+    public void setCartaoPagamento(Cartao cartaoPagamento) {
+        this.cartaoPagamento = cartaoPagamento;
     }
 
     public String getStatusPagamento() {
-        return StatusPagamento;
+        return statusPagamento;
     }
 
     public void setStatusPagamento(String statusPagamento) {
-        StatusPagamento = statusPagamento;
+        this.statusPagamento = statusPagamento;
     }
 
+    
 }
