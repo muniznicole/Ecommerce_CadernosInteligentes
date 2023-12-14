@@ -2,6 +2,7 @@ package br.unitins.hello.dto;
 
 import br.unitins.hello.model.Produto;
 import br.unitins.hello.model.ProdutoCompra;
+import br.unitins.hello.repository.ProdutoRepository;
 
 public record ProdutoCompraResponseDTO(
     Produto compra,
@@ -9,10 +10,11 @@ public record ProdutoCompraResponseDTO(
     Long id
 ) {
     public static ProdutoCompraResponseDTO valueOf(ProdutoCompra produtoCompra){
-
+        ProdutoRepository produtoRepository = new ProdutoRepository();
         return new ProdutoCompraResponseDTO (
-            produtoCompra.getProdutoCompra(),
+            produtoRepository.findById(produtoCompra.getProdutoCompra().getId()),
             produtoCompra.getQuantidade(),
-            produtoCompra.getId());
+            produtoCompra.getId()
+            );
     }
 }

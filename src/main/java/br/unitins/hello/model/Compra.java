@@ -1,9 +1,11 @@
 package br.unitins.hello.model;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import br.unitins.hello.dto.ProdutoCompraResponseDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -25,9 +27,6 @@ public class Compra extends DefaultEntity {
     @OneToOne
     @JoinColumn(name = "id_PagamentoCompra")
     private Pagamento pagamentoCompra;
-
-    
-
 
     public Pagamento getPagamentoCompra() {
         return pagamentoCompra;
@@ -51,6 +50,10 @@ public class Compra extends DefaultEntity {
 
     public void setProduto(List<ProdutoCompra> produto) {
         this.produto = produto;
+    }
+
+    public Collection<ProdutoCompraResponseDTO> getProdutos() {
+        return null;
     }
 
     

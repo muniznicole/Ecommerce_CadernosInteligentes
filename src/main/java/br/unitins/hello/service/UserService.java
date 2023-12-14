@@ -12,5 +12,6 @@ public interface UserService {
     public UserResponseDTO findbyid(Long id);
     public List<UserResponseDTO> findbyNome(String nome);
     public UserResponseDTO findByLogin(String login);
-    public UserResponseDTO findByLogineSenha(String login, String senha);
+    public UserResponseDTO findByLogineSenhaFuncionario(String login, String senha);
+    public UserResponseDTO findByLogineSenhaCliente(String login, String senha);
 }

@@ -45,7 +45,7 @@ public class AuthClienteResource {
 
         LOG.debug(hashSenha);
 
-        UserResponseDTO result = service.findByLogineSenha(dto.login(), hashSenha);
+        UserResponseDTO result = service.findByLogineSenhaCliente(dto.login(), hashSenha);
 
         if (result != null)
             LOG.info("Login e senha corretos.");

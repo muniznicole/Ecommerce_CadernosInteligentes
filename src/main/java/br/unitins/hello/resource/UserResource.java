@@ -22,7 +22,7 @@ import jakarta.ws.rs.core.Response.Status;
 @Path("/user")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@RolesAllowed({"User", "Administrador"})
+
 public class UserResource {
     
     @Inject
@@ -32,52 +32,11 @@ public class UserResource {
 
     @POST
     @Transactional
-    @RolesAllowed("Administrador")
     public Response insert(UserDTO dto) {
 
         LOG.info("Criando um novo usuário..."); 
         return Response.status(Status.CREATED).entity(service.insert(dto)).build();
     
-    }
-
-    @PUT
-    @Transactional
-    @Path("/{id}")
-    @RolesAllowed({"User", "Administrador"})
-    public Response update(UserDTO dto, @PathParam("id") Long id) {
-    
-        service.update(dto, id);
-        LOG.info("Atualizando usuário...");
-        LOG.warn("Este usuário está sendo atualizado!");
-        return Response.noContent().build();
-    
-    }
-
-    @DELETE
-    @Transactional
-    @Path("/{id}")
-    @RolesAllowed({"User", "Administrador"})
-    public Response delete(@PathParam("id") Long id) {
-        
-        service.delete(id);
-        LOG.info("Deletando usuário...");
-        LOG.warn("Este usuário está sendo deletado!");
-        return Response.noContent().build();
-    
-    }
-
-    @GET
-    @Path("/{id}")
-    @RolesAllowed({"User", "Administrador"})
-    public Response findById(@PathParam("id") Long id) {
-        return Response.ok(service.findbyid(id)).build();
-    }
-    
-    @GET
-    @Path("/search/nome/{nome}")
-    @RolesAllowed({"User", "Administrador"})
-    public Response findByNome(@PathParam("nome") String nome) {
-        return Response.ok(service.findbyNome(nome)).build();
     }
 
 }

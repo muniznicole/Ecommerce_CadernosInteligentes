@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 
 public record ProdutoCompraDTO(
     @NotBlank(message = "Deve conter um Produto")
-    Produto produtoCompra,
+    Long produtoCompra,
 @NotBlank(message = "Deve conter a quantidade de produtos")
     Integer quantidadeProdutoCompra
 ) {

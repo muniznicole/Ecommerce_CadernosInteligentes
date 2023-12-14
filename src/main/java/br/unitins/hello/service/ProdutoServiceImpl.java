@@ -30,11 +30,9 @@ public class ProdutoServiceImpl implements ProdutoService {
        novoProduto.setTamanhoProduto(dto.tamanho());
        novoProduto.setQuantidade(dto.quantidade());
 
-       try {
+       
     repository.persist(novoProduto);    
-       } catch (Exception e) {
-        e.getMessage();
-       }
+       
     return ProdutoResponseDTO.valueOf(novoProduto);
     }
 
@@ -63,21 +61,11 @@ public class ProdutoServiceImpl implements ProdutoService {
         repository.deleteById(id);
     }
 
-   /* 
-    @Override
-    public ProdutoResponseDTO findbyid(Long id) {
-        
-    }
-    */
 
     @Override
     public List<ProdutoResponseDTO> findAll() {
-      List<Produto> listProduto = new ArrayList();
-        listProduto.addAll(repository.listAll().size(), listProduto);
-        List<ProdutoResponseDTO> listResponse = listProduto.stream()
-                .map(e -> ProdutoResponseDTO.valueOf(e))
-                .collect(Collectors.toList());
-        return listResponse;
+        return repository.listAll().stream()
+        .map(e -> ProdutoResponseDTO.valueOf(e)).toList();
     }
 
   

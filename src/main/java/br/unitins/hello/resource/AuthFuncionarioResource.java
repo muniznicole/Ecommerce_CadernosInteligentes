@@ -45,7 +45,7 @@ public class AuthFuncionarioResource {
 
         LOG.debug(hashSenha);
 
-        UserResponseDTO result = service.findByLogineSenha(dto.login(), hashSenha);
+        UserResponseDTO result = service.findByLogineSenhaFuncionario(dto.login(), hashSenha);
 
         if (result != null)
             LOG.info("Login e senha corretos.");

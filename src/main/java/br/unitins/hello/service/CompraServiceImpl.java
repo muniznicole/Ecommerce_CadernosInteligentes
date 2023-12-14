@@ -11,6 +11,7 @@ import br.unitins.hello.dto.ProdutoCompraResponseDTO;
 import br.unitins.hello.model.Compra;
 import br.unitins.hello.model.ProdutoCompra;
 import br.unitins.hello.repository.CompraRepository;
+import br.unitins.hello.repository.PagamentoRepository;
 import br.unitins.hello.repository.ProdutoCompraRepository;
 import br.unitins.hello.repository.ProdutoRepository;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -30,28 +31,29 @@ public class CompraServiceImpl implements CompraService {
     @Inject
     ProdutoCompraRepository repositoryProdutoCompra;
 
+    @Inject
+    PagamentoRepository repositoryPagamento;
+   
+    @Inject
+    PagamentoServiceImpl servicePagamento;
+
     public CompraResponseDTO insert(CompraDTO dto) {
         Compra compra = new Compra();
-
         compra.setDataCompra(LocalDate.now());
-        if (dto.produto() != null && !dto.produto().isEmpty()){
 
-            compra.setProduto(new ArrayList<ProdutoCompra>());
-            List<ProdutoCompra> list = new ArrayList<ProdutoCompra>();
+        List<ProdutoCompra> listProdutoCompra = new ArrayList<>();
+        for(int i = 0;i<dto.produto().size();i++){
+            
+            listProdutoCompra.add( serviceProdutoCompra.insert( dto.produto().get(i)));  
+            
+        }
+        compra.setProduto(listProdutoCompra);        
+        compra.setPagamentoCompra(servicePagamento.insert( dto.pagamentoCompra()));
+        repository.persist(compra);
+        return CompraResponseDTO.valueOf(compra);
+    }
 
-            for (int i = dto.produto().size();i>=1;i--) {
-                ProdutoCompraDTO dtoProdutoCompra = 
-                new ProdutoCompraDTO(repositoryProduto.
-                findById(dto.produto().get(i)), 0);
-                ProdutoCompraResponseDTO compraResponseDTO = serviceProdutoCompra.insert(dtoProdutoCompra);
-                list.add(repositoryProdutoCompra.findById(compraResponseDTO.id()));
-            }
-         
-            compra.setProduto(list);
-        compra.setPagamentoCompra(dto.pagamentoCompra());
-    }
-    return CompraResponseDTO.valueOf(compra);
-    }
+    
     @Override
     public CompraResponseDTO update(CompraDTO dto, Long id) {
         // TODO Auto-generated method stub

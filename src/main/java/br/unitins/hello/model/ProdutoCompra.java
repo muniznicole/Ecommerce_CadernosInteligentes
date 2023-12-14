@@ -1,5 +1,6 @@
 package br.unitins.hello.model;
 
+import br.unitins.hello.dto.ProdutoDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -14,13 +15,7 @@ public class ProdutoCompra extends DefaultEntity{
     @Column
     private Integer quantidade;
 
-    public Produto getProdutoCompra() {
-        return produtoCompra;
-    }
-
-    public void setProdutoCompra(Produto produtoCompra) {
-        this.produtoCompra = produtoCompra;
-    }
+   
 
     public Integer getQuantidade() {
         return quantidade;
@@ -29,6 +24,19 @@ public class ProdutoCompra extends DefaultEntity{
     public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
     }
+
+    public Produto getProdutoCompra() {
+        return produtoCompra;
+    }
+
+    public void setProdutoCompra(Produto produto) {
+        this.produtoCompra = produto;
+    }
+
+   
+
+   
+
 
     
 

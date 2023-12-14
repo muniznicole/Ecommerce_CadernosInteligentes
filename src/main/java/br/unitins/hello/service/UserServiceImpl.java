@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
         novUsuario.setSenha(service.getHashSenha(dto.senha()));
         novUsuario.setTelefone(dto.telefone());
         novUsuario.setCpf(dto.cpf());
-        novUsuario.setPerfil(dto.perfil().fromId(0));
+        novUsuario.setPerfil(dto.perfil());
         repository.persist(novUsuario);
 
         return UserResponseDTO.valueOf(novUsuario);
@@ -91,11 +91,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponseDTO findByLogineSenha(String login, String senha) {
-        Usuario usuario = repository.findByLoginAndSenha(login, senha);
-        if (usuario == null) 
+    public UserResponseDTO findByLogineSenhaFuncionario(String login, String senha) {
+      Usuario usuario = repository.findByLoginAndSenha(login, senha);
+        if (usuario == null && usuario.getPerfil().getDescricao() == "Cliente") 
             throw new ValidationException("login", "Login ou senha inválido");
         
         return UserResponseDTO.valueOf(usuario);
     }
+
+    @Override
+    public UserResponseDTO findByLogineSenhaCliente(String login, String senha) {
+   Usuario usuario = repository.findByLoginAndSenha(login, senha);
+        if (usuario == null && usuario.getPerfil().getDescricao() == "Administrador") 
+            throw new ValidationException("login", "Login ou senha inválido");
+        
+        return UserResponseDTO.valueOf(usuario);
+    }
+
+   
 }

@@ -4,10 +4,11 @@ import java.util.List;
 
 import br.unitins.hello.dto.CartaoDTO;
 import br.unitins.hello.dto.CartaoResponseDTO;
+import br.unitins.hello.model.Cartao;
 
 
 public interface CartaoService {
-    public CartaoResponseDTO insert(CartaoDTO dto);
+    public Cartao insert(CartaoDTO dto);
 
     public CartaoResponseDTO update(CartaoDTO dto, Long id);
 

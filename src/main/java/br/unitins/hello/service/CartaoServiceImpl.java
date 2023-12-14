@@ -16,7 +16,7 @@ public class CartaoServiceImpl implements CartaoService{
     CartaoRepository repository;
 
     @Override
-    public CartaoResponseDTO insert(CartaoDTO dto) {
+    public Cartao insert(CartaoDTO dto) {
        Cartao novoCartao = new Cartao();
        novoCartao.setNumeroCartao(dto.numeroCartao());
        novoCartao.setTipoCartao(dto.cartaoTipo());
@@ -24,7 +24,7 @@ public class CartaoServiceImpl implements CartaoService{
 
        repository.persist(novoCartao);
 
-       return CartaoResponseDTO.valueOf(novoCartao);
+       return novoCartao;
     }
 
     @Override
