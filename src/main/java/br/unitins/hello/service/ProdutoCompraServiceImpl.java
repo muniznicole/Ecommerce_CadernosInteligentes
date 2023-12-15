@@ -25,12 +25,16 @@ public class ProdutoCompraServiceImpl implements ProdutoCompraService {
     @Inject
     ProdutoRepository produtoRepository;
 
+    @Inject
+    ProdutoService produtoService;
+
     @Override
     public ProdutoCompra insert(ProdutoCompraDTO dto) {
         ProdutoCompra novoProdutoCompra = new ProdutoCompra();
         Produto produto = new Produto();
         produto = produtoRepository.findById(dto.produtoCompra());
         novoProdutoCompra.setProdutoCompra(produto);
+        produtoService.updateQuantidade(produto.getId(), dto.quantidadeProdutoCompra());
         novoProdutoCompra.setQuantidade(dto.quantidadeProdutoCompra());
        
             repository.persist(novoProdutoCompra); 

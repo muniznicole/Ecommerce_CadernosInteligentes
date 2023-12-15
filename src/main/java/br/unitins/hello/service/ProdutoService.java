@@ -4,11 +4,12 @@ import java.util.List;
 
 import br.unitins.hello.dto.ProdutoDTO;
 import br.unitins.hello.dto.ProdutoResponseDTO;
+import br.unitins.hello.dto.ProdutoResponseFindDTO;
 
 
 public interface ProdutoService {
-public ProdutoResponseDTO insert(ProdutoDTO dto);
-    public ProdutoResponseDTO update(ProdutoDTO dto,Long id);
+public ProdutoResponseFindDTO insert(ProdutoDTO dto);
+    public ProdutoResponseDTO updateQuantidade(Long id,Integer novoQuantidade);
     public void delete(Long id);
-    public List<ProdutoResponseDTO> findAll();
+    public List<ProdutoResponseFindDTO> findAll();
 } 

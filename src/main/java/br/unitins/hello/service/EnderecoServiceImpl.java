@@ -23,7 +23,7 @@ public class EnderecoServiceImpl implements EnderecoService {
     CidadeRepository repositoryCidade;
 
     @Override
-    public EnderecoResponseDTO insert(EnderecoDTO dto) {
+    public Endereco insert(EnderecoDTO dto) {
         Endereco novoEndereco = new Endereco();
         Cidade cidade = repositoryCidade.findById(dto.id_cidadeEndereco());
         novoEndereco.setCidadeEnderco(cidade);
@@ -34,7 +34,7 @@ public class EnderecoServiceImpl implements EnderecoService {
         novoEndereco.setComplemento(dto.complemento());
         repository.persist(novoEndereco);
 
-        return EnderecoResponseDTO.valueOf(novoEndereco);
+        return novoEndereco;
     }
 
     @Override

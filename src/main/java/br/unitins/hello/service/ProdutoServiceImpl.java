@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import br.unitins.hello.dto.ProdutoCompraResponseDTO;
 import br.unitins.hello.dto.ProdutoDTO;
 import br.unitins.hello.dto.ProdutoResponseDTO;
+import br.unitins.hello.dto.ProdutoResponseFindDTO;
 import br.unitins.hello.dto.UserDTO;
 import br.unitins.hello.dto.UserResponseDTO;
 import br.unitins.hello.model.Produto;
@@ -22,7 +23,7 @@ public class ProdutoServiceImpl implements ProdutoService {
     ProdutoRepository repository;
 
     @Override
-    public ProdutoResponseDTO insert(ProdutoDTO dto) {
+    public ProdutoResponseFindDTO insert(ProdutoDTO dto) {
        Produto novoProduto = new Produto();
 
        novoProduto.setDescricao(dto.descricao());
@@ -33,24 +34,16 @@ public class ProdutoServiceImpl implements ProdutoService {
        
     repository.persist(novoProduto);    
        
-    return ProdutoResponseDTO.valueOf(novoProduto);
+    return ProdutoResponseFindDTO.valueOf(novoProduto);
     }
 
     @Override
-    public ProdutoResponseDTO update(ProdutoDTO dto, Long id) {
-         Produto atualizaProduto = new Produto();
-
-         atualizaProduto.setDescricao(dto.descricao());
-       atualizaProduto.setPrecoUnidade(dto.precoUnidade());
-       atualizaProduto.setTamanhoProduto(dto.tamanho());
-       atualizaProduto.setQuantidade(dto.quantidade());
-        try {
-
-            repository.persist(atualizaProduto);
-        } catch (Exception e) {
-            e.getMessage();
-
-        }
+    public ProdutoResponseDTO updateQuantidade( Long id, Integer novaQuantidade) {
+         Produto atualizaProduto = repository.findById(id);
+        Integer quant = atualizaProduto.getQuantidade()-novaQuantidade;
+         atualizaProduto.setQuantidade(quant);
+        
+        repository.persist(atualizaProduto);
 
         return ProdutoResponseDTO.valueOf(atualizaProduto);
     }
@@ -63,11 +56,9 @@ public class ProdutoServiceImpl implements ProdutoService {
 
 
     @Override
-    public List<ProdutoResponseDTO> findAll() {
+    public List<ProdutoResponseFindDTO> findAll() {
         return repository.listAll().stream()
-        .map(e -> ProdutoResponseDTO.valueOf(e)).toList();
+        .map(e -> ProdutoResponseFindDTO.valueOf(e)).toList();
     }
-
-  
     
 }

@@ -4,9 +4,10 @@ import java.util.List;
 
 import br.unitins.hello.dto.EnderecoDTO;
 import br.unitins.hello.dto.EnderecoResponseDTO;
+import br.unitins.hello.model.Endereco;
 
 public interface EnderecoService {
-    public EnderecoResponseDTO insert(EnderecoDTO dto);
+    public Endereco insert(EnderecoDTO dto);
 
     public EnderecoResponseDTO update(EnderecoDTO dto, Long id);
 

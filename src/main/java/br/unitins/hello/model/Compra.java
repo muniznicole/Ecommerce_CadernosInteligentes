@@ -11,6 +11,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
@@ -24,9 +25,33 @@ public class Compra extends DefaultEntity {
     @JoinColumn(name = "id_ProdutoCompra")
     private List<ProdutoCompra> produto;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_PagamentoCompra")
     private Pagamento pagamentoCompra;
+
+    @ManyToOne
+    @JoinColumn(name = "id_enderecoentrega")
+    private Endereco enderco;
+
+    @ManyToOne
+    @JoinColumn(name ="id_comprador")
+    private Usuario user;
+
+    public Endereco getEnderco() {
+        return enderco;
+    }
+
+    public void setEnderco(Endereco enderco) {
+        this.enderco = enderco;
+    }
+
+    public Usuario getUser() {
+        return user;
+    }
+
+    public void setUser(Usuario user) {
+        this.user = user;
+    }
 
     public Pagamento getPagamentoCompra() {
         return pagamentoCompra;

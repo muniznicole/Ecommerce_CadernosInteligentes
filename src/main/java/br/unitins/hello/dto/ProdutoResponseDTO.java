@@ -6,17 +6,13 @@ import br.unitins.hello.model.TamanhoTipo;
 public record ProdutoResponseDTO(
 
 String descricao,
-Double precoUnidade,
-TamanhoTipo tamanho,
-Integer quantidade
+TamanhoTipo tamanho
 
 ) {
 public static ProdutoResponseDTO valueOf(Produto produto){
     return new ProdutoResponseDTO(
     produto.getDescricao(),
-    produto.getPrecoUnidade(),
-    produto.getTamanhoProduto(),
-    produto.getQuantidade());
-
+    produto.getTamanhoProduto()
+    );
     }    
 }

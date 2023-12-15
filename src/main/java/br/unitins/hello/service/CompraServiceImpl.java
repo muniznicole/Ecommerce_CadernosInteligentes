@@ -4,16 +4,17 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.microprofile.jwt.JsonWebToken;
+
 import br.unitins.hello.dto.CompraDTO;
 import br.unitins.hello.dto.CompraResponseDTO;
-import br.unitins.hello.dto.ProdutoCompraDTO;
-import br.unitins.hello.dto.ProdutoCompraResponseDTO;
 import br.unitins.hello.model.Compra;
 import br.unitins.hello.model.ProdutoCompra;
 import br.unitins.hello.repository.CompraRepository;
 import br.unitins.hello.repository.PagamentoRepository;
 import br.unitins.hello.repository.ProdutoCompraRepository;
 import br.unitins.hello.repository.ProdutoRepository;
+import br.unitins.hello.repository.UserRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 @ApplicationScoped
@@ -37,6 +38,18 @@ public class CompraServiceImpl implements CompraService {
     @Inject
     PagamentoServiceImpl servicePagamento;
 
+    @Inject
+    EnderecoService serviceEndereco;
+
+    @Inject
+    JsonWebToken jwtService;
+
+    @Inject
+    UserRepository userRepository;
+
+    @Inject
+    UserService userService;
+
     public CompraResponseDTO insert(CompraDTO dto) {
         Compra compra = new Compra();
         compra.setDataCompra(LocalDate.now());
@@ -49,6 +62,9 @@ public class CompraServiceImpl implements CompraService {
         }
         compra.setProduto(listProdutoCompra);        
         compra.setPagamentoCompra(servicePagamento.insert( dto.pagamentoCompra()));
+        compra.setEnderco(serviceEndereco.insert(dto.enderecoEntrega()));
+        String login = jwtService.getSubject();
+        compra.setUser(userService.findByLoginUser(login));
         repository.persist(compra);
         return CompraResponseDTO.valueOf(compra);
     }
@@ -62,8 +78,7 @@ public class CompraServiceImpl implements CompraService {
 
     @Override
     public void delete(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+     repository.delete(repository.findById(id));
     }
 
     @Override

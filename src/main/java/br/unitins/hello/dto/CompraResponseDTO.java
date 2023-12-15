@@ -12,7 +12,8 @@ import br.unitins.hello.repository.ProdutoCompraRepository;
 public record CompraResponseDTO(
 LocalDate dataCompra,
 List<ProdutoCompraResponseDTO> produtos,
-Pagamento pagamentocompra
+Pagamento pagamentocompra,
+UserResponseCompraDTO userResponseDTO
 ) {
     public static CompraResponseDTO valueOf(Compra compra){
         List<ProdutoCompraResponseDTO> produtosDTO = compra.getProduto().stream()
@@ -22,7 +23,8 @@ Pagamento pagamentocompra
 return new CompraResponseDTO(
         compra.getDataCompra(),
         produtosDTO,
-        compra.getPagamentoCompra()
+        compra.getPagamentoCompra(),
+        UserResponseCompraDTO.valueOf(compra.getUser())
 );
     }}
     

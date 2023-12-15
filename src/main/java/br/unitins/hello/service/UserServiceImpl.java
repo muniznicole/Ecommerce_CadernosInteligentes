@@ -5,8 +5,11 @@ import br.unitins.hello.dto.UserResponseDTO;
 import br.unitins.hello.model.Usuario;
 import br.unitins.hello.repository.UserRepository;
 import br.unitins.hello.validation.ValidationException;
+import io.quarkus.security.User;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @ApplicationScoped
@@ -81,6 +84,7 @@ public class UserServiceImpl implements UserService {
     public List<UserResponseDTO> findbyNome(String nome) {
    return repository.findByNome(nome).stream().map(e -> UserResponseDTO.valueOf(e)).toList();
     }
+    
     @Override
     public UserResponseDTO findByLogin(String login) {
         Usuario usuario = repository.findByLogin(login);
@@ -88,6 +92,15 @@ public class UserServiceImpl implements UserService {
             throw new ValidationException("login", "Login inválido");
         
         return UserResponseDTO.valueOf(usuario);
+    }
+
+     @Override
+    public Usuario findByLoginUser(String login) {
+        Usuario usuario = repository.findByLogin(login);
+        if (usuario == null) 
+            throw new ValidationException("login", "Login inválido");
+        
+        return usuario;
     }
 
     @Override
@@ -108,5 +121,13 @@ public class UserServiceImpl implements UserService {
         return UserResponseDTO.valueOf(usuario);
     }
 
+    @Override
+    public List<UserResponseDTO> findall() {
+        List<UserResponseDTO> userResponseDTOs = new ArrayList<>(); 
+        for(Long i = repository.count();i>0 ;i--){
+        userResponseDTOs.add( UserResponseDTO.valueOf(repository.findById(i)));
+        }
+        return userResponseDTOs;
+    }
    
 }

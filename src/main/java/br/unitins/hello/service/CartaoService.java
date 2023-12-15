@@ -8,7 +8,7 @@ import br.unitins.hello.model.Cartao;
 
 
 public interface CartaoService {
-    public Cartao insert(CartaoDTO dto);
+    public CartaoResponseDTO insert(CartaoDTO dto);
 
     public CartaoResponseDTO update(CartaoDTO dto, Long id);
 

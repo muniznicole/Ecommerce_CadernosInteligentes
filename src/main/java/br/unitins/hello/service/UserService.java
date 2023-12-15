@@ -4,6 +4,8 @@ import java.util.List;
 
 import br.unitins.hello.dto.UserDTO;
 import br.unitins.hello.dto.UserResponseDTO;
+import br.unitins.hello.model.Usuario;
+
 
 public interface UserService {
     public UserResponseDTO insert(UserDTO dto);
@@ -14,4 +16,6 @@ public interface UserService {
     public UserResponseDTO findByLogin(String login);
     public UserResponseDTO findByLogineSenhaFuncionario(String login, String senha);
     public UserResponseDTO findByLogineSenhaCliente(String login, String senha);
+    public Usuario findByLoginUser(String login);
+    public List<UserResponseDTO> findall();
 }

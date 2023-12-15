@@ -2,8 +2,14 @@ package br.unitins.hello.resource;
 
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
+import com.arjuna.ats.arjuna.common.recoveryPropertyManager;
+
+import br.unitins.hello.dto.CartaoDTO;
+import br.unitins.hello.dto.CidadeDTO;
 import br.unitins.hello.dto.CompraDTO;
 import br.unitins.hello.repository.CidadeRepository;
+import br.unitins.hello.service.CartaoService;
+import br.unitins.hello.service.CidadeService;
 import br.unitins.hello.service.CompraService;
 import br.unitins.hello.service.EnderecoService;
 import br.unitins.hello.service.JwtService;
@@ -44,9 +50,36 @@ public class FuncionarioLogado {
 
     @Inject
     EnderecoService endereco;
+    
+    @Inject
+    CidadeService cidadeService;
 
     @Inject
-    CidadeRepository cidade;    
+    CartaoService cartaoService;
+    
+    @POST
+    @Path("/Realizar compra")
+    @Transactional
+    public Response Compra(CompraDTO insertcompra){
+        
+        return Response.ok(compra.insert(insertcompra)).build();
+    }
+
+    @POST
+    @Path("/Realizar cadastro de cidade")
+    @Transactional
+    public Response cadastrarCidade(CidadeDTO cidade){
+        
+        return Response.ok(cidadeService.insertCidade(cidade)).build();
+    }
+
+      @POST
+    @Path("/Realizar cadastro de cartao")
+    @Transactional
+    public Response cadastrarCartao(CartaoDTO cartao){
+        
+        return Response.ok().build();
+    }
 
     @GET
     @Path("/Login e Senha")
@@ -56,11 +89,18 @@ public class FuncionarioLogado {
         return Response.ok(service.findByLogin(login)).build();
     }
 
-    @POST
-    @Path("/Realizar compra")
-    @Transactional
-    public Response Compra(CompraDTO insertcompra){
-        
-        return Response.ok(compra.insert(insertcompra)).build();
+
+    @GET
+    @Path("/Todos os Usuarios")
+    public Response todosUsuarios(){
+        return Response.ok(service.findall()).build();
     }
+
+    @GET
+    @Path("/Todas as cidades")
+    public Response todasCidades(){
+        return Response.ok(cidadeService.findall()).build();
+    }
+
+
 }

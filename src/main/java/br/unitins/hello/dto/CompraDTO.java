@@ -9,7 +9,10 @@ public record CompraDTO(
 @NotBlank(message = "Dever conter a lista de produtos comprados e suas quantidades")
 List<ProdutoCompraDTO> produto,
 @NotBlank(message = "Deve conter a forma de pagamento e o status do pagamento   ")
-PagamentoDTO pagamentoCompra
+PagamentoDTO pagamentoCompra,
+@NotBlank(message = "Deve conter a forma de pagamento e o status do pagamento   ")
+EnderecoDTO enderecoEntrega
+
 ) {
     
 }

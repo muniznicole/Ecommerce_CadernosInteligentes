@@ -8,7 +8,7 @@ public record PagamentoDTO(
 @NotBlank(message = "Deve conter o tipo de pagamento")
 PagamentoTipo pagamentoTipo,
 
-CartaoDTO cartao,
+Long cartaoId,
 @NotBlank(message = "Deve conter o status do pagamento")
 String statusPagamento
 

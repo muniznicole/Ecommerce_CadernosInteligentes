@@ -1,5 +1,7 @@
 package br.unitins.hello.model;
 
+import java.util.stream.Stream;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
