@@ -9,6 +9,7 @@ import com.arjuna.ats.arjuna.common.recoveryPropertyManager;
 import br.unitins.hello.dto.CartaoDTO;
 import br.unitins.hello.dto.CidadeDTO;
 import br.unitins.hello.dto.CompraDTO;
+import br.unitins.hello.dto.ProdutoDTO;
 import br.unitins.hello.repository.CidadeRepository;
 import br.unitins.hello.service.CartaoService;
 import br.unitins.hello.service.CidadeService;
@@ -62,6 +63,15 @@ public class FuncionarioLogado {
     
     private static final Logger LOG = Logger.getLogger(AuthFuncionarioResource.class);
 
+     @POST
+    @Path("/Inserir novo produto")
+    @Transactional
+    public Response insereProduto(@Valid ProdutoDTO produtoDTO){
+        
+        LOG.info("Inserindo produto...");
+        return Response.ok(produto.insert(produtoDTO)).build();
+    }
+    
     @POST
     @Path("/Realizar compra")
     @Transactional

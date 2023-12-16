@@ -4,6 +4,7 @@ import org.jboss.logging.Logger;
 
 import br.unitins.hello.dto.ProdutoDTO;
 import br.unitins.hello.service.ProdutoService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -34,12 +35,5 @@ public class ProdutoResource {
 
     }
 
-    @POST
-    @Path("/Inserir novo produto")
-    @Transactional
-    public Response insereProduto(@Valid ProdutoDTO produtoDTO){
-        
-        LOG.info("Inserindo produto...");
-        return Response.ok(produto.insert(produtoDTO)).build();
-    }
+   
 }

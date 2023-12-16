@@ -17,6 +17,9 @@ public class UserServiceImpl implements UserService {
     @Inject
     UserRepository repository;
 
+    @Inject
+    JwtService jwtService;
+
     @Override
     public UserResponseDTO insert(UserDTO dto) {
         Usuario novUsuario = new Usuario();
@@ -94,14 +97,7 @@ public class UserServiceImpl implements UserService {
         return UserResponseDTO.valueOf(usuario);
     }
 
-     @Override
-    public Usuario findByLoginUser(String login) {
-        Usuario usuario = repository.findByLogin(login);
-        if (usuario == null) 
-            throw new ValidationException("login", "Login inválido");
-        
-        return usuario;
-    }
+   
 
     @Override
     public UserResponseDTO findByLogineSenhaFuncionario(String login, String senha) {
@@ -128,6 +124,11 @@ public class UserServiceImpl implements UserService {
         userResponseDTOs.add( UserResponseDTO.valueOf(repository.findById(i)));
         }
         return userResponseDTOs;
+    }
+
+    @Override
+    public UserResponseDTO findByUser() {
+       return UserResponseDTO.valueOf(jwtService.getJwt());
     }
    
 }

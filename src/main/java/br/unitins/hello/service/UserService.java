@@ -16,6 +16,6 @@ public interface UserService {
     public UserResponseDTO findByLogin(String login);
     public UserResponseDTO findByLogineSenhaFuncionario(String login, String senha);
     public UserResponseDTO findByLogineSenhaCliente(String login, String senha);
-    public Usuario findByLoginUser(String login);
+    public UserResponseDTO findByUser();
     public List<UserResponseDTO> findall();
 }

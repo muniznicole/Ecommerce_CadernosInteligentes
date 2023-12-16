@@ -7,13 +7,14 @@ import java.util.Set;
 
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
-import com.oracle.svm.core.annotate.Inject;
+
 
 import br.unitins.hello.dto.UserResponseDTO;
 import br.unitins.hello.model.Usuario;
 import br.unitins.hello.repository.UserRepository;
 import io.smallrye.jwt.build.Jwt;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
 @ApplicationScoped
 public class JwtServiceImpl implements JwtService{

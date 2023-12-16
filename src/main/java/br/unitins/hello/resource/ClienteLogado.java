@@ -51,6 +51,9 @@ public class ClienteLogado {
     CompraService compra;
 
     @Inject
+    JwtService jwtService;
+
+    @Inject
     PagamentoService pagamento;
 
     @Inject
@@ -97,34 +100,16 @@ public class ClienteLogado {
     public Response FindLoginSenha(){
 
         LOG.info("Buscando login e senha...");
-        String login = jwt.getSubject();
 
-        return Response.ok(service.findByLogin(login)).build();
+        return Response.ok(service.findByUser()).build();
     }
 
-
-    @GET
-    @Path("/Todos os Usuarios")
-    public Response todosUsuarios(){
-        
-        LOG.info("Buscando todos os usuários...");
-        return Response.ok(service.findall()).build();
-    }
-
-    @GET
-    @Path("/Todas as cidades")
-    public Response todasCidades(){
-        
-        LOG.info("Buscando todas as cidades...");
-        return Response.ok(cidadeService.findall()).build();
-    
-    }
 
     @GET
     @Path("Todas as compras")
     public Response todasascompras(){
        
-        return Response.ok(compra.findbyid(jwT.getJwt())).build();
+        return Response.ok(compra.Findbyuser(jwT.getJwt())).build();
 
     }
 

@@ -23,7 +23,7 @@ import jakarta.ws.rs.core.Response.Status;
 @Path("/cartao")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@RolesAllowed({"User", "Administrador"})
+
 public class CartaoResource {
 
     @Inject
@@ -33,6 +33,7 @@ public class CartaoResource {
 
     @POST
     @Transactional
+    @RolesAllowed({"Cliente", "Administrador"})
     public Response insert(@Valid CartaoDTO dto) {
         
         LOG.info("Criando um novo cartão...");    
@@ -43,6 +44,7 @@ public class CartaoResource {
     @PUT
     @Transactional
     @Path("/{id}")
+    @RolesAllowed({"Cliente", "Administrador"})
     public Response update(CartaoDTO dto, @PathParam("id") Long id) {
         
         service.update(dto, id);
@@ -55,6 +57,7 @@ public class CartaoResource {
     @DELETE
     @Transactional
     @Path("/{id}")
+    @RolesAllowed({"Cliente", "Administrador"})
     public Response delete(@PathParam("id") Long id) {
         
         service.delete(id);
@@ -66,12 +69,14 @@ public class CartaoResource {
 
     @GET
     @Path("/{id}")
+    @RolesAllowed({ "Administrador"})
     public Response findById(@PathParam("id") Long id) {
         return Response.ok(service.findById(id)).build();
     }
 
     @GET
     @Path("/search/cartao/{Titularcartao}")
+    @RolesAllowed({"Administrador"})
     public Response findByTitularCartao(@PathParam("Titularcartao") String titularCartao) {
         return Response.ok(service.findByTitularCartao(titularCartao)).build();
     }

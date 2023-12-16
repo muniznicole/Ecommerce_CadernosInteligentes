@@ -24,7 +24,7 @@ import jakarta.ws.rs.core.Response.Status;
 @Path("/endereco")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@RolesAllowed({"User", "Administrador"})
+
 public class EnderecoResource {
     
     @Inject
@@ -34,6 +34,7 @@ public class EnderecoResource {
 
     @POST
     @Transactional
+    @RolesAllowed({"Cliente", "Administrador"})
     public Response insert(@Valid EnderecoDTO dto) {
 
         LOG.info("Criando um novo endereço...");  
@@ -44,6 +45,7 @@ public class EnderecoResource {
     @PUT
     @Transactional
     @Path("/{id}")
+        @RolesAllowed({"Cliente", "Administrador"})
     public Response update(EnderecoDTO dto, @PathParam("id") Long id) {
         
         service.update(dto, id);
@@ -55,6 +57,7 @@ public class EnderecoResource {
 
     @DELETE
     @Transactional
+        @RolesAllowed({"Administrador"})
     @Path("/{id}")
     public Response delete(@PathParam("id") Long id) {
 
@@ -67,12 +70,14 @@ public class EnderecoResource {
 
     @GET
     @Path("/{id}")
+        @RolesAllowed({"Cliente", "Administrador"})
     public Response findById(@PathParam("id") Long id) {
         return Response.ok(service.findById(id)).build();
     }
 
     @GET
     @Path("/search/cidade/{cidade}")
+        @RolesAllowed({"Cliente", "Administrador"})
     public Response findByNome(@PathParam("cidade") String cidade) {
         return Response.ok(service.findByCidadeNome(cidade)).build();
     }

@@ -48,6 +48,9 @@ public class CompraServiceImpl implements CompraService {
     JsonWebToken jwtService;
 
     @Inject
+    JwtService jwtServicE;
+
+    @Inject
     UserRepository userRepository;
 
     @Inject
@@ -66,8 +69,7 @@ public class CompraServiceImpl implements CompraService {
         compra.setProduto(listProdutoCompra);        
         compra.setPagamentoCompra(servicePagamento.insert( dto.pagamentoCompra()));
         compra.setEnderco(serviceEndereco.insert(dto.enderecoEntrega()));
-        String login = jwtService.getSubject();
-        compra.setUser(userService.findByLoginUser(login));
+        compra.setUser(jwtServicE.getJwt());
         repository.persist(compra);
         return CompraResponseDTO.valueOf(compra);
     }
