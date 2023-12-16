@@ -17,6 +17,7 @@ import br.unitins.hello.repository.ProdutoRepository;
 import br.unitins.hello.repository.UserRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+
 @ApplicationScoped
 public class CompraServiceImpl implements CompraService {
 

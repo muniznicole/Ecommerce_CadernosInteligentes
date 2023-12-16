@@ -7,6 +7,7 @@ import br.unitins.hello.dto.EnderecoResponseDTO;
 import br.unitins.hello.model.Endereco;
 
 public interface EnderecoService {
+    
     public Endereco insert(EnderecoDTO dto);
 
     public EnderecoResponseDTO update(EnderecoDTO dto, Long id);

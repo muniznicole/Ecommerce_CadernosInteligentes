@@ -5,13 +5,13 @@ import br.unitins.hello.model.PagamentoTipo;
 import jakarta.validation.constraints.NotBlank;
 
 public record PagamentoDTO(
-@NotBlank(message = "Deve conter o tipo de pagamento")
-PagamentoTipo pagamentoTipo,
-
-Long cartaoId,
-@NotBlank(message = "Deve conter o status do pagamento")
-String statusPagamento
-
-) {
     
-}
+    @NotBlank(message = "Deve conter o tipo de pagamento")
+    PagamentoTipo pagamentoTipo,
+    
+    Long cartaoId,
+    
+    @NotBlank(message = "Deve conter o status do pagamento")
+    String statusPagamento
+
+) {}

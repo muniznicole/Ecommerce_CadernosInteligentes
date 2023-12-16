@@ -17,6 +17,7 @@ import jakarta.inject.Inject;
 
 @ApplicationScoped
 public class EnderecoServiceImpl implements EnderecoService {
+    
     @Inject
     EnderecoRepository repository;
     @Inject

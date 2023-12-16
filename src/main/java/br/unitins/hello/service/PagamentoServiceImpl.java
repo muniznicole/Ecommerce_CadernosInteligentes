@@ -24,12 +24,13 @@ public class PagamentoServiceImpl implements PagamentoService {
 
     @Override
     public Pagamento insert(PagamentoDTO dto) {
-       Pagamento novPagamento= new Pagamento();  
+        
+        Pagamento novPagamento= new Pagamento();  
 
         novPagamento.setPagamentoTipo(dto.pagamentoTipo());
         CartaoDTO cartaoDTO = new CartaoDTO(cartaoRepository.findById(dto.cartaoId()).getTitularCartao(),
-         cartaoRepository.findById(dto.cartaoId()).getTipoCartao(),
-         cartaoRepository.findById(dto.cartaoId()).getNumeroCartao());
+        cartaoRepository.findById(dto.cartaoId()).getTipoCartao(),
+        cartaoRepository.findById(dto.cartaoId()).getNumeroCartao());
         novPagamento.setCartaoPagamento(cartaoRepository.findById(dto.cartaoId()));
         novPagamento.setStatusPagamento(dto.statusPagamento());
 
@@ -63,6 +64,5 @@ public class PagamentoServiceImpl implements PagamentoService {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'findbyid'");
     }
-
     
 }

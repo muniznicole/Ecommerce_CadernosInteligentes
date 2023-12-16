@@ -10,9 +10,11 @@ import br.unitins.hello.model.Cartao;
 import br.unitins.hello.repository.CartaoRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+
 @ApplicationScoped
 public class CartaoServiceImpl implements CartaoService{
- @Inject
+    
+    @Inject
     CartaoRepository repository;
 
     @Override
@@ -29,6 +31,7 @@ public class CartaoServiceImpl implements CartaoService{
 
     @Override
     public CartaoResponseDTO update(CartaoDTO dto, Long id) {
+    
         Cartao atualizaCartao = repository.findById(id);
 
         if (dto.numeroCartao().equals("string")) {

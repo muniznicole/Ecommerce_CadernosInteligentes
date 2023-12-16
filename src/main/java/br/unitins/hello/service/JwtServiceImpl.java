@@ -8,6 +8,7 @@ import java.util.Set;
 import br.unitins.hello.dto.UserResponseDTO;
 import io.smallrye.jwt.build.Jwt;
 import jakarta.enterprise.context.ApplicationScoped;
+
 @ApplicationScoped
 public class JwtServiceImpl implements JwtService{
 private static final Duration EXPIRATION_TIME = Duration.ofHours(24);
