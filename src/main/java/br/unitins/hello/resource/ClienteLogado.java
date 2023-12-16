@@ -21,7 +21,6 @@ import br.unitins.hello.service.UserService;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
@@ -30,11 +29,11 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-@Path("/FuncionarioLogado")
+@Path("/ClienteLogado")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@RolesAllowed({ "Administrador"})
-public class FuncionarioLogado {
+@RolesAllowed({ "Cliente"})
+public class ClienteLogado {
     
     @Inject
     UserService service;
@@ -42,6 +41,9 @@ public class FuncionarioLogado {
     @Inject
     ProdutoService produto;
 
+    @Inject
+    JwtService jwT;
+       
     @Inject
     JsonWebToken jwt;
     
@@ -65,7 +67,7 @@ public class FuncionarioLogado {
     @POST
     @Path("/Realizar compra")
     @Transactional
-    public Response Compra(@Valid CompraDTO insertcompra){
+    public Response Compra(CompraDTO insertcompra){
     
         LOG.info("Iniciando compra...");
         return Response.ok(compra.insert(insertcompra)).build();
@@ -84,10 +86,10 @@ public class FuncionarioLogado {
     @POST
     @Path("/Realizar cadastro de cartao")
     @Transactional
-    public Response cadastrarCartao(@Valid CartaoDTO cartao){
-    
+    public Response cadastrarCartao(CartaoDTO cartao){
+        cartaoService.insert(cartao);
         LOG.info("Iniciando cadastro de cartão...");
-        return Response.ok(cartaoService.insert(cartao)).build();
+        return Response.ok().build();
     }
 
     @GET
@@ -118,5 +120,12 @@ public class FuncionarioLogado {
     
     }
 
+    @GET
+    @Path("Todas as compras")
+    public Response todasascompras(){
+       
+        return Response.ok(compra.findbyid(jwT.getJwt())).build();
+
+    }
 
 }
