@@ -29,11 +29,11 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-@Path("/FuncionarioLogado")
+@Path("/ClienteLogado")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@RolesAllowed({ "Administrador"})
-public class FuncionarioLogado {
+@RolesAllowed({ "Cliente"})
+public class ClienteLogado {
     
     @Inject
     UserService service;
@@ -41,6 +41,9 @@ public class FuncionarioLogado {
     @Inject
     ProdutoService produto;
 
+    @Inject
+    JwtService jwT;
+       
     @Inject
     JsonWebToken jwt;
     
@@ -84,9 +87,9 @@ public class FuncionarioLogado {
     @Path("/Realizar cadastro de cartao")
     @Transactional
     public Response cadastrarCartao(CartaoDTO cartao){
-        
+        cartaoService.insert(cartao);
         LOG.info("Iniciando cadastro de cartão...");
-        return Response.ok(cartaoService.insert(cartao)).build();
+        return Response.ok().build();
     }
 
     @GET
@@ -117,5 +120,12 @@ public class FuncionarioLogado {
     
     }
 
+    @GET
+    @Path("Todas as compras")
+    public Response todasascompras(){
+       
+        return Response.ok(compra.findbyid(jwT.getJwt())).build();
+
+    }
 
 }

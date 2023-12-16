@@ -5,12 +5,25 @@ import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.eclipse.microprofile.jwt.JsonWebToken;
+
+import com.oracle.svm.core.annotate.Inject;
+
 import br.unitins.hello.dto.UserResponseDTO;
+import br.unitins.hello.model.Usuario;
+import br.unitins.hello.repository.UserRepository;
 import io.smallrye.jwt.build.Jwt;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class JwtServiceImpl implements JwtService{
+
+    @Inject
+    JsonWebToken jwt;
+
+    @Inject
+    UserRepository userRepository;
+
 private static final Duration EXPIRATION_TIME = Duration.ofHours(24);
     @Override
     public String generateJwt(UserResponseDTO dto) {
@@ -23,5 +36,18 @@ private static final Duration EXPIRATION_TIME = Duration.ofHours(24);
         .expiresAt(expiryDate)
         .sign();
     }
-    
-}
+    @Override
+    public Usuario getJwt() {
+        Usuario user = new Usuario();
+        for(Long i = userRepository.count();i>0;i--){
+        if(jwt.getRawToken().equals(userRepository.findById(i).getSenha())){
+            user = userRepository.findById(i);
+        }
+    }
+    return user;
+    }
+
+    }
+
+
+
