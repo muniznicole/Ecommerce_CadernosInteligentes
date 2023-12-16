@@ -2,6 +2,8 @@ package br.unitins.hello.resource;
 
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
+import org.jboss.logging.Logger;
+
 import com.arjuna.ats.arjuna.common.recoveryPropertyManager;
 
 import br.unitins.hello.dto.CartaoDTO;
@@ -40,7 +42,7 @@ public class FuncionarioLogado {
     ProdutoService produto;
 
     @Inject
-      JsonWebToken jwt;
+    JsonWebToken jwt;
     
     @Inject
     CompraService compra;
@@ -57,33 +59,41 @@ public class FuncionarioLogado {
     @Inject
     CartaoService cartaoService;
     
+    private static final Logger LOG = Logger.getLogger(AuthFuncionarioResource.class);
+
     @POST
     @Path("/Realizar compra")
     @Transactional
     public Response Compra(CompraDTO insertcompra){
-        
+    
+        LOG.info("Iniciando compra...");
         return Response.ok(compra.insert(insertcompra)).build();
+    
     }
 
     @POST
     @Path("/Realizar cadastro de cidade")
     @Transactional
     public Response cadastrarCidade(CidadeDTO cidade){
-        
+
+        LOG.info("Iniciando cadastro de cidade...");    
         return Response.ok(cidadeService.insertCidade(cidade)).build();
     }
 
-      @POST
+    @POST
     @Path("/Realizar cadastro de cartao")
     @Transactional
     public Response cadastrarCartao(CartaoDTO cartao){
-        
+    
+        LOG.info("Iniciando cadastro de cartão...");
         return Response.ok().build();
     }
 
     @GET
     @Path("/Login e Senha")
     public Response FindLoginSenha(){
+
+        LOG.info("Buscando login e senha...");
         String login = jwt.getSubject();
 
         return Response.ok(service.findByLogin(login)).build();
@@ -93,13 +103,18 @@ public class FuncionarioLogado {
     @GET
     @Path("/Todos os Usuarios")
     public Response todosUsuarios(){
+        
+        LOG.info("Buscando todos os usuários...");
         return Response.ok(service.findall()).build();
     }
 
     @GET
     @Path("/Todas as cidades")
     public Response todasCidades(){
+        
+        LOG.info("Buscando todas as cidades...");
         return Response.ok(cidadeService.findall()).build();
+    
     }
 
 

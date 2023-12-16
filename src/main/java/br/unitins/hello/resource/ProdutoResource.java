@@ -1,5 +1,7 @@
 package br.unitins.hello.resource;
 
+import org.jboss.logging.Logger;
+
 import br.unitins.hello.dto.ProdutoDTO;
 import br.unitins.hello.service.ProdutoService;
 import jakarta.inject.Inject;
@@ -20,11 +22,13 @@ public class ProdutoResource {
     @Inject
     ProdutoService produto;
 
+    private static final Logger LOG = Logger.getLogger(AuthFuncionarioResource.class);
+
     @GET
     @Path("/Todos os Produtos")
     public Response FindAll(){
         
-
+        LOG.info("Buscando todos os produtos...");
         return Response.ok(produto.findAll()).build();
 
     }
@@ -33,6 +37,8 @@ public class ProdutoResource {
     @Path("/Inserir novo produto")
     @Transactional
     public Response insereProduto(ProdutoDTO produtoDTO){
+        
+        LOG.info("Inserindo produto...");
         return Response.ok(produto.insert(produtoDTO)).build();
     }
 }
