@@ -8,6 +8,7 @@ import br.unitins.hello.service.EnderecoService;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -33,7 +34,7 @@ public class EnderecoResource {
 
     @POST
     @Transactional
-    public Response insert(EnderecoDTO dto) {
+    public Response insert(@Valid EnderecoDTO dto) {
 
         LOG.info("Criando um novo endereço...");  
         return Response.status(Status.CREATED).entity(service.insert(dto)).build();

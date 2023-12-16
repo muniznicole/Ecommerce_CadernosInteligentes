@@ -6,6 +6,7 @@ import br.unitins.hello.dto.ProdutoDTO;
 import br.unitins.hello.service.ProdutoService;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
@@ -36,7 +37,7 @@ public class ProdutoResource {
     @POST
     @Path("/Inserir novo produto")
     @Transactional
-    public Response insereProduto(ProdutoDTO produtoDTO){
+    public Response insereProduto(@Valid ProdutoDTO produtoDTO){
         
         LOG.info("Inserindo produto...");
         return Response.ok(produto.insert(produtoDTO)).build();
