@@ -8,8 +8,10 @@ import org.eclipse.microprofile.jwt.JsonWebToken;
 
 import br.unitins.hello.dto.CompraDTO;
 import br.unitins.hello.dto.CompraResponseDTO;
+import br.unitins.hello.dto.ProdutoResponseFindDTO;
 import br.unitins.hello.model.Compra;
 import br.unitins.hello.model.ProdutoCompra;
+import br.unitins.hello.model.Usuario;
 import br.unitins.hello.repository.CompraRepository;
 import br.unitins.hello.repository.PagamentoRepository;
 import br.unitins.hello.repository.ProdutoCompraRepository;
@@ -86,6 +88,13 @@ public class CompraServiceImpl implements CompraService {
     public CompraResponseDTO findbyid(Long id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'findbyid'");
+    }
+
+
+    @Override
+    public List<CompraResponseDTO> Findbyuser(Usuario user) {
+        return  repository.listAll().stream()
+        .map(e -> CompraResponseDTO.valueOf(e)).toList();
     }
     
 }
