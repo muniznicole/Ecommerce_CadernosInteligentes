@@ -63,7 +63,7 @@ public class FuncionarioLogado {
     
     private static final Logger LOG = Logger.getLogger(AuthFuncionarioResource.class);
 
-     @POST
+    @POST
     @Path("/Inserir novo produto")
     @Transactional
     public Response insereProduto(@Valid ProdutoDTO produtoDTO){

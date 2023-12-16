@@ -21,6 +21,7 @@ import br.unitins.hello.service.UserService;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
@@ -70,7 +71,7 @@ public class ClienteLogado {
     @POST
     @Path("/Realizar compra")
     @Transactional
-    public Response Compra(CompraDTO insertcompra){
+    public Response Compra(@Valid CompraDTO insertcompra){
     
         LOG.info("Iniciando compra...");
         return Response.ok(compra.insert(insertcompra)).build();
@@ -80,7 +81,7 @@ public class ClienteLogado {
     @POST
     @Path("/Realizar cadastro de cidade")
     @Transactional
-    public Response cadastrarCidade(CidadeDTO cidade){
+    public Response cadastrarCidade(@Valid CidadeDTO cidade){
 
         LOG.info("Iniciando cadastro de cidade...");    
         return Response.ok(cidadeService.insertCidade(cidade)).build();
@@ -89,7 +90,7 @@ public class ClienteLogado {
     @POST
     @Path("/Realizar cadastro de cartao")
     @Transactional
-    public Response cadastrarCartao(CartaoDTO cartao){
+    public Response cadastrarCartao(@Valid CartaoDTO cartao){
         cartaoService.insert(cartao);
         LOG.info("Iniciando cadastro de cartão...");
         return Response.ok().build();
